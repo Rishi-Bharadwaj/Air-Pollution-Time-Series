@@ -1,0 +1,277 @@
+Average number of gaps per site: 4.42
+Average sequence length (days): 551.95
+w limit_days=7
+
+Sequence length distribution:
+0-30 days       586
+30-90 days      465
+90-180 days     311
+180-365 days    249
+1-2 years       276
+2+ years        546
+Name: count, dtype: int64
+
+Average number of gaps per site: 2.95
+Average sequence length (days): 821.25
+w limit_days=14
+Sequence length distribution:
+0-30 days       174
+30-90 days      274
+90-180 days     204
+180-365 days    191
+1-2 years       231
+2+ years        579
+
+
+pm2.5: 75, 15
+pm10: 150, 45
+o3:160, 100
+no2: 120, 25
+so2: 125, 40
+co:7, 4 mg/m3
+nh3:400
+
+indian limits:
+pm2.5: 60
+pm10: 100
+o3:180
+no2: 80
+so2: 80
+co:4 mg/m3
+nh3:400
+
+
+
+PM2.5 (µg/m³):
+  <=10%: 185 sites
+  <=20%: 323 sites
+  <=30%: 416 sites
+  <=40%: 462 sites
+  <=50%: 483 sites
+  <=60%: 505 sites
+  <=70%: 526 sites
+  <=80%: 539 sites
+  <=90%: 544 sites
+  <=100%: 565 sites
+Total sites: 565
+
+PM10 (µg/m³):
+  <=10%: 187 sites
+  <=20%: 327 sites
+  <=30%: 417 sites
+  <=40%: 460 sites
+  <=50%: 481 sites
+  <=60%: 504 sites
+  <=70%: 519 sites
+  <=80%: 532 sites
+  <=90%: 539 sites
+  <=100%: 565 sites
+Total sites: 565
+
+NO2 (µg/m³):
+  <=10%: 217 sites
+  <=20%: 334 sites
+  <=30%: 424 sites
+  <=40%: 468 sites
+  <=50%: 491 sites
+  <=60%: 513 sites
+  <=70%: 534 sites
+  <=80%: 542 sites
+  <=90%: 548 sites
+  <=100%: 565 sites
+Total sites: 565
+
+NH3 (µg/m³):
+  <=10%: 194 sites
+  <=20%: 300 sites
+  <=30%: 384 sites
+  <=40%: 426 sites
+  <=50%: 445 sites
+  <=60%: 462 sites
+  <=70%: 480 sites
+  <=80%: 489 sites
+  <=90%: 492 sites
+  <=100%: 565 sites
+Total sites: 565
+
+SO2 (µg/m³):
+  <=10%: 205 sites
+  <=20%: 331 sites
+  <=30%: 410 sites
+  <=40%: 457 sites
+  <=50%: 478 sites
+  <=60%: 499 sites
+  <=70%: 513 sites
+  <=80%: 520 sites
+  <=90%: 526 sites
+  <=100%: 565 sites
+Total sites: 565
+
+CO (mg/m³):
+  <=10%: 222 sites
+  <=20%: 348 sites
+  <=30%: 431 sites
+  <=40%: 469 sites
+  <=50%: 489 sites
+  <=60%: 508 sites
+  <=70%: 524 sites
+  <=80%: 533 sites
+  <=90%: 540 sites
+  <=100%: 565 sites
+Total sites: 565
+
+Ozone (µg/m³):
+  <=10%: 210 sites
+  <=20%: 330 sites
+  <=30%: 413 sites
+  <=40%: 455 sites
+  <=50%: 472 sites
+  <=60%: 491 sites
+  <=70%: 508 sites
+  <=80%: 517 sites
+  <=90%: 528 sites
+  <=100%: 565 sites
+Total sites: 565
+
+AT (°C):
+  <=10%: 189 sites
+  <=20%: 277 sites
+  <=30%: 330 sites
+  <=40%: 364 sites
+  <=50%: 384 sites
+  <=60%: 401 sites
+  <=70%: 416 sites
+  <=80%: 428 sites
+  <=90%: 432 sites
+  <=100%: 565 sites
+Total sites: 565
+
+RH (%):
+  <=10%: 206 sites
+  <=20%: 312 sites
+  <=30%: 366 sites
+  <=40%: 407 sites
+  <=50%: 435 sites
+  <=60%: 457 sites
+  <=70%: 477 sites
+  <=80%: 487 sites
+  <=90%: 494 sites
+  <=100%: 565 sites
+Total sites: 565
+
+PM2.5 (µg/m³):
+  <=10%: 185 sites
+  <=20%: 323 sites
+  <=30%: 416 sites
+  <=40%: 462 sites
+  <=50%: 483 sites
+  <=60%: 505 sites
+  <=70%: 526 sites
+  <=80%: 539 sites
+  <=90%: 544 sites
+  <=100%: 565 sites
+Total sites: 565
+
+PM10 (µg/m³):
+  <=10%: 187 sites
+  <=20%: 327 sites
+  <=30%: 417 sites
+  <=40%: 460 sites
+  <=50%: 481 sites
+  <=60%: 504 sites
+  <=70%: 519 sites
+  <=80%: 532 sites
+  <=90%: 539 sites
+  <=100%: 565 sites
+Total sites: 565
+
+NO2 (µg/m³):
+  <=10%: 217 sites
+  <=20%: 334 sites
+  <=30%: 424 sites
+  <=40%: 468 sites
+  <=50%: 491 sites
+  <=60%: 513 sites
+  <=70%: 534 sites
+  <=80%: 542 sites
+  <=90%: 548 sites
+  <=100%: 565 sites
+Total sites: 565
+
+NH3 (µg/m³):
+  <=10%: 194 sites
+  <=20%: 300 sites
+  <=30%: 384 sites
+  <=40%: 426 sites
+  <=50%: 445 sites
+  <=60%: 462 sites
+  <=70%: 480 sites
+  <=80%: 489 sites
+  <=90%: 492 sites
+  <=100%: 565 sites
+Total sites: 565
+
+SO2 (µg/m³):
+  <=10%: 205 sites
+  <=20%: 331 sites
+  <=30%: 410 sites
+  <=40%: 457 sites
+  <=50%: 478 sites
+  <=60%: 499 sites
+  <=70%: 513 sites
+  <=80%: 520 sites
+  <=90%: 526 sites
+  <=100%: 565 sites
+Total sites: 565
+
+CO (mg/m³):
+  <=10%: 222 sites
+  <=20%: 348 sites
+  <=30%: 431 sites
+  <=40%: 469 sites
+  <=50%: 489 sites
+  <=60%: 508 sites
+  <=70%: 524 sites
+  <=80%: 533 sites
+  <=90%: 540 sites
+  <=100%: 565 sites
+Total sites: 565
+
+Ozone (µg/m³):
+  <=10%: 210 sites
+  <=20%: 330 sites
+  <=30%: 413 sites
+  <=40%: 455 sites
+  <=50%: 472 sites
+  <=60%: 491 sites
+  <=70%: 508 sites
+  <=80%: 517 sites
+  <=90%: 528 sites
+  <=100%: 565 sites
+Total sites: 565
+
+AT (°C):
+  <=10%: 189 sites
+  <=20%: 277 sites
+  <=30%: 330 sites
+  <=40%: 364 sites
+  <=50%: 384 sites
+  <=60%: 401 sites
+  <=70%: 416 sites
+  <=80%: 428 sites
+  <=90%: 432 sites
+  <=100%: 565 sites
+Total sites: 565
+
+RH (%):
+  <=10%: 206 sites
+  <=20%: 312 sites
+  <=30%: 366 sites
+  <=40%: 407 sites
+  <=50%: 435 sites
+  <=60%: 457 sites
+  <=70%: 477 sites
+  <=80%: 487 sites
+  <=90%: 494 sites
+  <=100%: 565 sites
+Total sites: 565
