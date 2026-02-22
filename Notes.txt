@@ -275,3 +275,241 @@ RH (%):
   <=90%: 494 sites
   <=100%: 565 sites
 Total sites: 565
+
+
+{'eval_loss': 1691.3062744140625, 'eval_model_preparation_time': 0.0008, 'eval_runtime': 1.1428, 'eval_samples_per_second': 4519.463, 'eval_steps_per_second': 70.876}
+Predictions shape: (5165, 96, 6)
+Ground truth shape: (5165, 96, 6)
+
+==================================================
+TTM - site_113_Shadipur_Delhi_CPCB_15Min - OVERALL EVALUATION METRICS
+==================================================
+MSE (Mean Squared Error):        1691.306396
+RMSE (Root Mean Squared Error):  41.125496
+MAE (Mean Absolute Error):       18.091372
+MAPE (Mean Absolute % Error):    45.7538%
+R² Score:                        0.798104
+SMAPE (Symmetric MAPE):          31.3882%
+==================================================
+
+TTM - site_113_Shadipur_Delhi_CPCB_15Min - PER-CHANNEL METRICS
+Shape: 5165 samples × 96 timesteps × 6 channels
+==================================================
+
+PM2.5 (µg/m³):
+  Ground Truth → Min: 10.00, Max: 968.80
+  Predictions  → Min: 12.83, Max: 757.17
+  MSE:   2463.081787
+  RMSE:  49.629445
+  MAE:   26.528646
+  MAPE:  38.5938%
+  R²:    0.445083
+  SMAPE: 32.8178%
+
+PM10 (µg/m³):
+  Ground Truth → Min: 10.60, Max: 954.70
+  Predictions  → Min: 13.90, Max: 702.29
+  MSE:   6945.475098
+  RMSE:  83.339517
+  MAE:   54.898293
+  MAPE:  42.7524%
+  R²:    0.682027
+  SMAPE: 34.6396%
+
+NO2 (µg/m³):
+  Ground Truth → Min: 17.79, Max: 255.02
+  Predictions  → Min: 21.90, Max: 175.23
+  MSE:   483.199493
+  RMSE:  21.981799
+  MAE:   14.486556
+  MAPE:  23.7051%
+  R²:    0.372020
+  SMAPE: 21.8162%
+
+SO2 (µg/m³):
+  Ground Truth → Min: 0.10, Max: 198.80
+  Predictions  → Min: -2.24, Max: 133.99
+  MSE:   180.336166
+  RMSE:  13.428930
+  MAE:   6.370838
+  MAPE:  110.4080%
+  R²:    0.007150
+  SMAPE: 46.8004%
+
+CO (mg/m³):
+  Ground Truth → Min: 0.13, Max: 6.20
+  Predictions  → Min: 0.40, Max: 4.43
+  MSE:   0.259902
+  RMSE:  0.509806
+  MAE:   0.305245
+  MAPE:  24.1681%
+  R²:    0.550478
+  SMAPE: 22.2106%
+
+Ozone (µg/m³):
+  Ground Truth → Min: 3.70, Max: 88.00
+  Predictions  → Min: 4.67, Max: 51.92
+  MSE:   75.485382
+  RMSE:  8.688232
+  MAE:   5.958643
+  MAPE:  34.8953%
+  R²:    0.385624
+  SMAPE: 30.0445%
+==================================================
+
+==================================================
+MEAN Baseline - OVERALL EVALUATION METRICS
+==================================================
+MSE (Mean Squared Error):        2219.821045
+RMSE (Root Mean Squared Error):  47.114977
+MAE (Mean Absolute Error):       22.153368
+MAPE (Mean Absolute % Error):    59.6113%
+R² Score:                        0.735014
+SMAPE (Symmetric MAPE):          39.6813%
+==================================================
+
+MEAN Baseline - PER-CHANNEL METRICS
+Shape: 5165 samples × 96 timesteps × 6 channels
+==================================================
+
+PM2.5 (µg/m³):
+  Ground Truth → Min: 10.00, Max: 968.80
+  Predictions  → Min: 37.85, Max: 152.80
+  MSE:   3016.805908
+  RMSE:  54.925458
+  MAE:   31.662626
+  MAPE:  48.3632%
+  R²:    0.320332
+  SMAPE: 39.8990%
+
+PM10 (µg/m³):
+  Ground Truth → Min: 10.60, Max: 954.70
+  Predictions  → Min: 53.55, Max: 398.65
+  MSE:   9284.524414
+  RMSE:  96.356237
+  MAE:   66.528412
+  MAPE:  53.6517%
+  R²:    0.574942
+  SMAPE: 41.6842%
+
+NO2 (µg/m³):
+  Ground Truth → Min: 17.79, Max: 255.02
+  Predictions  → Min: 43.14, Max: 95.70
+  MSE:   710.842957
+  RMSE:  26.661638
+  MAE:   18.946257
+  MAPE:  32.6628%
+  R²:    0.076168
+  SMAPE: 28.4542%
+
+SO2 (µg/m³):
+  Ground Truth → Min: 0.10, Max: 198.80
+  Predictions  → Min: 6.52, Max: 22.78
+  MSE:   196.551117
+  RMSE:  14.019669
+  MAE:   7.392233
+  MAPE:  132.3559%
+  R²:    -0.082122
+  SMAPE: 53.5096%
+
+CO (mg/m³):
+  Ground Truth → Min: 0.13, Max: 6.20
+  Predictions  → Min: 0.82, Max: 2.08
+  MSE:   0.486318
+  RMSE:  0.697365
+  MAE:   0.454983
+  MAPE:  39.2984%
+  R²:    0.158872
+  SMAPE: 33.2945%
+
+Ozone (µg/m³):
+  Ground Truth → Min: 3.70, Max: 88.00
+  Predictions  → Min: 7.09, Max: 32.06
+  MSE:   109.714874
+  RMSE:  10.474487
+  MAE:   7.935684
+  MAPE:  51.3356%
+  R²:    0.107030
+  SMAPE: 41.2464%
+==================================================
+
+==================================================
+MEDIAN Baseline - OVERALL EVALUATION METRICS
+==================================================
+MSE (Mean Squared Error):        2394.644775
+RMSE (Root Mean Squared Error):  48.935108
+MAE (Mean Absolute Error):       22.053370
+MAPE (Mean Absolute % Error):    51.6387%
+R² Score:                        0.714145
+SMAPE (Symmetric MAPE):          38.8293%
+==================================================
+
+MEDIAN Baseline - PER-CHANNEL METRICS
+Shape: 5165 samples × 96 timesteps × 6 channels
+==================================================
+
+PM2.5 (µg/m³):
+  Ground Truth → Min: 10.00, Max: 968.80
+  Predictions  → Min: 33.95, Max: 152.00
+  MSE:   3297.242432
+  RMSE:  57.421620
+  MAE:   32.713127
+  MAPE:  45.5233%
+  R²:    0.257151
+  SMAPE: 41.3424%
+
+PM10 (µg/m³):
+  Ground Truth → Min: 10.60, Max: 954.70
+  Predictions  → Min: 48.15, Max: 396.08
+  MSE:   10045.318359
+  RMSE:  100.226336
+  MAE:   66.764488
+  MAPE:  48.6644%
+  R²:    0.540112
+  SMAPE: 41.5717%
+
+NO2 (µg/m³):
+  Ground Truth → Min: 17.79, Max: 255.02
+  Predictions  → Min: 38.83, Max: 87.18
+  MSE:   722.912048
+  RMSE:  26.887024
+  MAE:   18.115536
+  MAPE:  29.0542%
+  R²:    0.060483
+  SMAPE: 27.3909%
+
+SO2 (µg/m³):
+  Ground Truth → Min: 0.10, Max: 198.80
+  Predictions  → Min: 6.90, Max: 20.45
+  MSE:   182.927994
+  RMSE:  13.525088
+  MAE:   6.402156
+  MAPE:  106.2460%
+  R²:    -0.007119
+  SMAPE: 48.2179%
+
+CO (mg/m³):
+  Ground Truth → Min: 0.13, Max: 6.20
+  Predictions  → Min: 0.80, Max: 1.75
+  MSE:   0.537901
+  RMSE:  0.733418
+  MAE:   0.446705
+  MAPE:  34.4991%
+  R²:    0.069655
+  SMAPE: 32.8302%
+
+Ozone (µg/m³):
+  Ground Truth → Min: 3.70, Max: 88.00
+  Predictions  → Min: 7.01, Max: 32.22
+  MSE:   118.929749
+  RMSE:  10.905492
+  MAE:   7.878216
+  MAPE:  45.8455%
+  R²:    0.032030
+  SMAPE: 41.6226%
+==================================================
+Saved results to: ttm_benchmarking_results/site_113_Shadipur_Delhi_CPCB_15Min_metrics.json
+
+============================================================
+All results saved to: ttm_benchmarking_results/all_sites_metrics_20260222_053332.json
+============================================================
