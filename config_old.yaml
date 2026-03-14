@@ -3,11 +3,11 @@ epa:
     zip: false
     zip_path:     /mnt/2TB_WD/rishi/epa_data
     unzip_dir: /mnt/2TB_WD/rishi/epa
-    years: [2022, 2023, 2024, 2025]
+    years: [2023, 2024, 2025]
     by_year_by_site_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_by_year
     by_site_all_years_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
-    target_start: "2022-07-01 00:00:00"
-    target_end:   "2025-06-30 23:00:00"
+    target_start: "2023-01-01 00:00:00"
+    target_end:   "2025-12-31 23:00:00"
 
 
 
@@ -15,8 +15,8 @@ epa:
     make_dicts: false
     folder: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
     date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
+      start: "2023-01-01 00:00:00"
+      end:   "2025-12-31 23:00:00"
     output:
       dicts_dir: visualize_epa_dicts
       image_dir:  visualize_epa_images
@@ -44,8 +44,8 @@ epa:
     n_neighbors: 5
     max_workers: 4
     date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
+      start: "2023-01-01 00:00:00"
+      end:   "2025-12-31 23:00:00"
     features:
       - "PM2.5 (µg/m³)"
       - "PM10 (µg/m³)"
@@ -68,11 +68,11 @@ cpcb:
     make_dicts: true
     folder: /mnt/2TB_WD/rishi/cpcb/separated
     date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
+      start: "2023-01-01 00:00:00"
+      end:   "2025-12-31 23:00:00"
     output:
-      dicts_dir: visualize_cpcb_dicts
-      image_dir:  visualize_cpcb_images
+      dicts_dir: visualize_cpcb_dicts_old
+      image_dir:  visualize_cpcb_images_old
     features:
       - "PM2.5 (µg/m³)"
       - "PM10 (µg/m³)"
@@ -89,15 +89,15 @@ cpcb:
       "Ozone (µg/m³)": 160
 
   imputation:
-    dicts_dir: visualize_cpcb_dicts
+    dicts_dir: visualize_cpcb_dicts_old
     input_dir: /mnt/2TB_WD/rishi/cpcb/separated
-    output_dir: /mnt/2TB_WD/rishi/cpcb/sites_imputed
+    output_dir: /mnt/2TB_WD/rishi/cpcb/sites_imputed_old
     max_gap_hours: 336
     max_data_missing: 30
-    max_workers: 32
+    max_workers: 4
     date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
+      start: "2023-01-01 00:00:00"
+      end:   "2025-12-31 23:00:00"
     features:
       - "PM2.5 (µg/m³)"
       - "PM10 (µg/m³)"

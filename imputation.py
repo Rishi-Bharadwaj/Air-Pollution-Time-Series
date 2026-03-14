@@ -41,6 +41,7 @@ def mstl_impute(series: pd.Series, periods=(24, 168), robust=True) -> pd.Series:
     mstl = MSTL(
         prelim_filled,
         periods=periods,
+        iterate=1,
         stl_kwargs={"robust": robust}
     )
     result = mstl.fit()
@@ -86,7 +87,9 @@ def get_sites_per_pollutant(dicts_dir, features, max_gap_hours, max_data_missing
         valid_sites = []
 
         for col in df.columns:
-            site_stem = col[: -len(suffix)] if col.endswith(suffix) else col
+            stem_no_ext = col[:-4] if col.endswith('.csv') else col
+            idx = stem_no_ext.rfind(f"_{safe_key}")
+            site_stem = stem_no_ext[:idx] if idx != -1 else stem_no_ext
 
             if missing_pct[col] > (max_data_missing):
                 continue
@@ -122,7 +125,7 @@ def process_site_pollutant(site_stem, pol, input_dir, output_dir, date_start, da
 
     imputed = mstl_impute(series)
 
-    out = imputed.reset_index(names="Timestamp")
+    out = imputed.reset_index(name="Timestamp")
     out.to_csv(os.path.join(output_dir, f"{site_stem}_{formula}.csv"), index=False)
     return site_stem, pol
 
