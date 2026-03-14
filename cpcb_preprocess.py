@@ -31,7 +31,7 @@ def process_site(site, files, folder, output_dir):
 
     site_stem = os.path.splitext(site)[0]
     for pol in POLS:
-        if pol not in x_df.columns:
+        if pol not in x_df.columns or x_df[pol].isna().all():
             continue
         safe_pol = (pol.replace("(", "").replace(")", "")
                        .replace("/", "_").replace(" ", "_")
@@ -50,19 +50,20 @@ def main():
     with open(args.config) as f:
         cfg = yaml.safe_load(f)[args.dataset]["preprocess"]
 
+    do_zip       = cfg.get("zip", True)
     zip_path     = cfg["zip_path"]
-    raw_dir      = cfg["raw_dir"]
+    raw_dir      = cfg["unzip_dir"]
     input_folder = cfg["input_folder"]
     output_dir   = cfg["output_dir"]
     max_workers  = cfg.get("max_workers", 8)
 
-    if zip_path and os.path.exists(zip_path):
+    if do_zip:
         print(f"Unzipping {zip_path} -> {raw_dir}")
         os.makedirs(raw_dir, exist_ok=True)
         with zipfile.ZipFile(zip_path, "r") as z:
             z.extractall(raw_dir)
     else:
-        print(f"Skipping unzip (zip not found or not set): {zip_path}")
+        print("Skipping unzip (zip: false in config)")
 
     os.makedirs(output_dir, exist_ok=True)
 

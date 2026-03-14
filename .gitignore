@@ -4,3 +4,4 @@
 !*.yaml
 !.gitignore
 !*.txt
+!*.toml

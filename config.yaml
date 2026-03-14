@@ -1,36 +1,22 @@
 epa:
   preprocess:
-    base: /mnt/2TB_WD/rishi/EPA
+    zip: false
+    zip_path:     /mnt/2TB_WD/rishi/epa_data
+    unzip_dir: /mnt/2TB_WD/rishi/epa
     years: [2022, 2023, 2024, 2025]
-    by_site_dir: /mnt/2TB_WD/rishi/EPA/epa_data_by_site
-    output_dir: /home/student/rishi/EPA_sites_separate_pols
-    target_start: "2023-01-01"
-    target_end:   "2025-12-31 23:00"
+    by_year_by_site_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_by_year
+    by_site_all_years_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
+    target_start: "2022-07-01 00:00:00"
+    target_end:   "2025-06-30 23:00:00"
 
-  imputation:
-    dicts_dir: visualize_epa_dicts
-    input_dir: /home/student/rishi/EPA_sites_separate_pols
-    output_dir: /home/student/rishi/EPA_sites_imputed
-    max_gap_hours: 336
-    min_data_pct: 70
-    n_neighbors: 5
-    max_workers: 4
-    date_range:
-      start: "2023-01-01"
-      end:   "2025-12-31 23:00:00"
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
+
 
   visualise:
-    folder: /home/student/rishi/EPA_sites_separate_pols
+    make_dicts: false
+    folder: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
     date_range:
-      start: "2023-01-01 00:00:00"
-      end:   "2025-12-31 23:00:00"
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
     output:
       dicts_dir: visualize_epa_dicts
       image_dir:  visualize_epa_images
@@ -48,26 +34,18 @@ epa:
       "SO2 (µg/m³)":   40
       "CO (mg/m³)":    4
       "Ozone (µg/m³)": 100
-
-cpcb:
-  preprocess:
-    zip_path:     /home/student/rishi/cpcb_data.zip
-    raw_dir:      /home/student/rishi/CPCB/cpcb_raw
-    input_folder: /home/student/rishi/CPCB/cpcb_raw/cpcb_data
-    output_dir:   /home/student/rishi/CPCB/sites_comb_separate_pols
-    max_workers:  24
-
+    
   imputation:
-    dicts_dir: visualize_cpcb_dicts
-    input_dir: /home/student/rishi/CPCB/sites_comb_separate_pols
-    output_dir: /home/student/rishi/CPCB/sites_imputed
+    dicts_dir: visualize_epa_dicts
+    input_dir: /home/student/rishi/EPA_sites_separate_pols
+    output_dir: /home/student/rishi/EPA_sites_imputed
     max_gap_hours: 336
     min_data_pct: 70
     n_neighbors: 5
     max_workers: 4
     date_range:
-      start: "2023-01-01"
-      end:   "2025-12-31 23:00:00"
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
     features:
       - "PM2.5 (µg/m³)"
       - "PM10 (µg/m³)"
@@ -76,11 +54,22 @@ cpcb:
       - "CO (mg/m³)"
       - "Ozone (µg/m³)"
 
+cpcb:
+  preprocess:
+    zip: true
+    zip_path:     /mnt/2TB_WD/rishi/cpcb_data.zip
+    unzip_dir:    /mnt/2TB_WD/rishi/cpcb/cpcb_unzipped
+    input_folder: /mnt/2TB_WD/rishi/cpcb/cpcb_unzipped/cpcb_data
+    output_dir:   /mnt/2TB_WD/rishi/cpcb/separated
+    max_workers:  24
+
+
   visualise:
-    folder: /home/student/rishi/CPCB/sites_comb_separate_pols
+    make_dicts: false
+    folder: /mnt/2TB_WD/rishi/cpcb/separated
     date_range:
-      start: "2023-01-01 00:00:00"
-      end:   "2025-12-31 23:00:00"
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
     output:
       dicts_dir: visualize_cpcb_dicts
       image_dir:  visualize_cpcb_images
@@ -98,3 +87,22 @@ cpcb:
       "SO2 (µg/m³)":   125
       "CO (mg/m³)":    7
       "Ozone (µg/m³)": 160
+
+  imputation:
+    dicts_dir: visualize_cpcb_dicts
+    input_dir: /home/student/rishi/CPCB/sites_comb_separate_pols
+    output_dir: /home/student/rishi/CPCB/sites_imputed
+    max_gap_hours: 336
+    min_data_pct: 70
+    n_neighbors: 5
+    max_workers: 4
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"

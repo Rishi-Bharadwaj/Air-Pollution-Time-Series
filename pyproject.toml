@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "air-quality-pipeline"
+version = "0.1.0"
+requires-python = ">=3.10"
+
+dependencies = [
+    # core — used by all scripts
+    "pandas>=2.0",
+    "pyyaml>=6.0",       # imported as `yaml`
+    "tqdm>=4.0",
+
+    # visualization — script 3
+    "matplotlib>=3.8",
+    "seaborn>=0.13",
+
+    # modeling — script 4
+    "statsmodels>=0.14",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff",
+]

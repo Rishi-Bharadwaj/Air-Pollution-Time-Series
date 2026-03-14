@@ -4,9 +4,71 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 
 import pandas as pd
 import yaml
-from sklearn.impute import KNNImputer
+from statsmodels.tsa.seasonal import MSTL
 from tqdm import tqdm
 
+def mstl_impute(series: pd.Series, periods=(24, 168), robust=True) -> pd.Series:
+    """
+    Impute missing values in a time series using MSTL decomposition.
+    
+    Args:
+        series  : pd.Series with DatetimeIndex and NaN gaps
+        periods : tuple of seasonal periods (default: daily=24, weekly=168 for hourly data)
+        robust  : use robust LOESS fitting (recommended for noisy sensor data)
+    
+    Returns:
+        pd.Series with NaNs filled
+    """
+    
+    # --- Step 1: Record which indices are missing ---
+    # We want to only write back values at originally missing positions,
+    # not disturb observed values.
+    missing_mask = series.isna()
+    
+    if not missing_mask.any():
+        return series  # nothing to impute
+    
+    # --- Step 2: Preliminary interpolation ---
+    # MSTL cannot accept NaNs internally. We do a naive linear interpolation
+    # purely so the decomposition can fit. This is just scaffolding — the
+    # result of this fill is NOT used as the final imputed value.
+    prelim_filled = series.interpolate(method='linear').ffill().bfill()
+    # ffill/bfill handles NaNs at the edges (interpolate() can't fill leading/trailing NaNs)
+
+    # --- Step 3: Fit MSTL ---
+    # periods=(24, 168): extract both daily (24h) and weekly (7*24=168h) seasonalities
+    # stl_kwargs are passed down to each internal STL fit
+    mstl = MSTL(
+        prelim_filled,
+        periods=periods,
+        stl_kwargs={"robust": robust}
+    )
+    result = mstl.fit()
+
+    # --- Step 4: Extract and sum all seasonal components ---
+    # result.seasonal is a DataFrame — one column per period
+    # e.g., columns: ['seasonal_24', 'seasonal_168']
+    # We sum across columns to get the combined seasonal signal
+    total_seasonal = result.seasonal.sum(axis=1)
+
+    # --- Step 5: Deseasonalize the ORIGINAL series (NaNs preserved) ---
+    # By subtracting seasonal from the original (not prelim_filled),
+    # gaps that were NaN stay NaN — we haven't contaminated them yet.
+    deseasonalized = series - total_seasonal
+
+    # --- Step 6: Interpolate only in the deseasonalized (simpler) space ---
+    # The residual trend signal is much smoother than raw data,
+    # making linear interpolation much more accurate here.
+    deseasonalized_imputed = deseasonalized.interpolate(method='linear').ffill().bfill()
+
+    # --- Step 7: Recompose — add seasonal back ---
+    fully_imputed = deseasonalized_imputed + total_seasonal
+
+    # --- Step 8: Write back ONLY to originally missing positions ---
+    output = series.copy()
+    output[missing_mask] = fully_imputed[missing_mask]
+
+    return output
 
 def safe_pol_name(pol):
     return (
@@ -71,7 +133,7 @@ def get_sites(dicts_dir, features, max_gap_hours, min_data_pct):
     return sites
 
 
-def process_site(site_stem, input_dir, output_dir, features, date_start, date_end, n_neighbors):
+def process_site(site_stem, input_dir, output_dir, features, date_start, date_end):
     frames = {}
     for pol in features:
         path = os.path.join(input_dir, f"{site_stem}_{safe_pol_name(pol)}.csv")
@@ -80,22 +142,18 @@ def process_site(site_stem, input_dir, output_dir, features, date_start, date_en
         frames[pol] = df.set_index("Timestamp")[pol]
 
     full_index = pd.date_range(date_start, date_end, freq="h")
-    df = pd.DataFrame(frames).reindex(full_index)
+    combined = pd.DataFrame(frames).reindex(full_index)
 
-    df["hour"] = df.index.hour
-    df["dayofyear"] = df.index.dayofyear
-    df["dayofweek"] = df.index.dayofweek
+    imputed = {pol: mstl_impute(combined[pol]) for pol in features}
+    df_imputed = pd.DataFrame(imputed, index=combined.index)
 
-    imputed = KNNImputer(n_neighbors=n_neighbors).fit_transform(df)
-    df_imputed = pd.DataFrame(imputed, index=df.index, columns=df.columns)
-
-    out = df_imputed[features].reset_index(names="Timestamp")
+    out = df_imputed.reset_index(names="Timestamp")
     out.to_csv(os.path.join(output_dir, f"{site_stem}.csv"), index=False)
     return site_stem
 
 
 def main():
-    parser = argparse.ArgumentParser(description="KNN-impute site data.")
+    parser = argparse.ArgumentParser(description="MSTL-impute site data.")
     parser.add_argument("config", help="Path to config.yaml")
     parser.add_argument("dataset", help="Dataset key in config (e.g. cpcb, epa)")
     args = parser.parse_args()
@@ -108,7 +166,6 @@ def main():
     output_dir    = cfg["output_dir"]
     max_gap_hours = cfg["max_gap_hours"]
     min_data_pct  = cfg["min_data_pct"]
-    n_neighbors   = cfg.get("n_neighbors", 5)
     max_workers   = cfg.get("max_workers", 4)
     date_start    = cfg["date_range"]["start"]
     date_end      = cfg["date_range"]["end"]
@@ -124,7 +181,7 @@ def main():
         futures = {
             executor.submit(
                 process_site, site, input_dir, output_dir,
-                features, date_start, date_end, n_neighbors,
+                features, date_start, date_end,
             ): site
             for site in sites
         }

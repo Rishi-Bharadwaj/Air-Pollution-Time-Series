@@ -1,7 +1,9 @@
 import argparse
 import glob
 import os
+import zipfile
 from collections import defaultdict
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 import pandas as pd
 import yaml
@@ -41,7 +43,13 @@ who_names = {
 }
 
 
-def separate_and_filter(df, pol, by_site_dir):
+def _load_and_separate(path, pol, by_year_by_site_dir):
+    df = pd.read_csv(path, low_memory=False)
+    separate_and_filter(df, pol, by_year_by_site_dir)
+    return path
+
+
+def separate_and_filter(df, pol, by_year_by_site_dir):
     df.columns = df.columns.str.strip().str.replace("_", " ")
     df["Timestamp"] = pd.to_datetime(df["Date GMT"] + " " + df["Time GMT"], format="%Y-%m-%d %H:%M")
     s = df["Parameter Name"].iloc[0] + " " + df["Units of Measure"].iloc[0]
@@ -53,15 +61,15 @@ def separate_and_filter(df, pol, by_site_dir):
     for site_id, group_df in df_f.groupby("Key"):
         safe_name = f"site_{site_id[0]}_{site_id[1]}_{site_id[2]}_{pol}_{year}"
         safe_name = safe_name.replace("/", "_").replace(" ", "_")
-        group_df.drop(columns=["Key"]).to_csv(os.path.join(by_site_dir, f"{safe_name}.csv"), index=False)
+        group_df.drop(columns=["Key"]).to_csv(os.path.join(by_year_by_site_dir, f"{safe_name}.csv"), index=False)
 
 
-def join_years(by_site_dir, output_dir, target_start, target_end):
+def join_years(by_year_by_site_dir, by_site_all_years_dir, target_start, target_end):
     units_to_pol = {v: k for k, v in original_units.items()}
     target_index = pd.date_range(start=target_start, end=target_end, freq="h")
 
     groups = defaultdict(list)
-    for fpath in glob.glob(os.path.join(by_site_dir, "*.csv")):
+    for fpath in glob.glob(os.path.join(by_year_by_site_dir, "*.csv")):
         fname = os.path.basename(fpath).replace(".csv", "")
         parts = fname.split("_")
         key = "_".join(parts[:-1])
@@ -88,7 +96,7 @@ def join_years(by_site_dir, output_dir, target_start, target_end):
         pol_suffix = pol_name.replace(" ", "_")
         site_prefix = key[: -len(pol_suffix) - 1]
         formula = who_names[pol_name].split(" ")[0]
-        combined.to_csv(os.path.join(output_dir, f"{site_prefix}_{formula}.csv"))
+        combined.to_csv(os.path.join(by_site_all_years_dir, f"{site_prefix}_{formula}.csv"))
 
 
 def main():
@@ -100,33 +108,53 @@ def main():
     with open(args.config) as f:
         cfg = yaml.safe_load(f)[args.dataset]["preprocess"]
 
-    base       = cfg["base"]
-    years      = cfg["years"]
-    by_site_dir = cfg["by_site_dir"]
-    output_dir  = cfg["output_dir"]
+    do_zip       = cfg.get("zip", True)
+    zip_path     = cfg.get("zip_path")
+    unzip_dir         = cfg["unzip_dir"]
+    years        = cfg["years"]
+    by_year_by_site_dir   = cfg["by_year_by_site_dir"]
+    by_site_all_years_dir = cfg["by_site_all_years_dir"]
     target_start = cfg["target_start"]
     target_end   = cfg["target_end"]
 
-    os.makedirs(by_site_dir, exist_ok=True)
-    os.makedirs(output_dir, exist_ok=True)
+    if do_zip:
+        print(f"Unzipping zips from {zip_path} -> {unzip_dir}")
+        os.makedirs(unzip_dir, exist_ok=True)
+        for fpath in glob.glob(os.path.join(zip_path, "*.zip")):
+            if any(fpath.endswith(f"{year}.zip") for year in years):
+                with zipfile.ZipFile(fpath, "r") as z:
+                    for member in z.infolist():
+                        member.filename = os.path.basename(member.filename)
+                        if member.filename:
+                            z.extract(member, unzip_dir)
+    else:
+        print("Skipping unzip (zip: false in config)")
+
+    os.makedirs(by_year_by_site_dir, exist_ok=True)
+    os.makedirs(by_site_all_years_dir, exist_ok=True)
 
     print("Step 1: splitting raw CSVs by site...")
+    tasks = []
     for year in years:
         for type_code, pol in type_to_pol.items():
-            path = os.path.join(base, f"{type_code}_{year}.csv")
+            path = os.path.join(unzip_dir, f"{type_code}_{year}.csv")
             if not os.path.exists(path):
                 print(f"Skipping {path} (not found)")
                 continue
-            df = pd.read_csv(path, low_memory=False)
+            tasks.append((path, pol))
+
+    with ProcessPoolExecutor(max_workers=6) as executor:
+        futures = {executor.submit(_load_and_separate, path, pol, by_year_by_site_dir): path
+                   for path, pol in tasks}
+        for future in tqdm(as_completed(futures), total=len(futures), desc="Splitting files"):
             try:
-                separate_and_filter(df, pol, by_site_dir)
+                future.result()
             except Exception as e:
-                print(f"Failed on {path}: {e}")
-        print(f"Year {year} done.")
+                print(f"Failed on {futures[future]}: {e}")
 
     print("Step 2: joining years and converting units...")
-    join_years(by_site_dir, output_dir, target_start, target_end)
-    print(f"Done. Output in {output_dir}/")
+    join_years(by_year_by_site_dir, by_site_all_years_dir, target_start, target_end)
+    print(f"Done. Output in {by_site_all_years_dir}/")
 
 
 if __name__ == "__main__":

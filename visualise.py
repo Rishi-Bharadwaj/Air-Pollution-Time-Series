@@ -43,11 +43,11 @@ def plot_site_comparison_heatmap(df, feature_name, limit_dict, image_dir):
         vmax=vmax,
     )
 
-    years = pd.to_datetime(df.index).year.unique()
-    year_starts = [df.index.get_loc(pd.Timestamp(f"{year}-01-01"))
-                   for year in years if pd.Timestamp(f"{year}-01-01") in df.index]
-    ax.set_xticks(year_starts)
-    ax.set_xticklabels(years, rotation=0, fontsize=10)
+    tick_dates = pd.date_range(start=df.index[0], end=df.index[-1], freq="6MS")
+    tick_positions = [df.index.get_loc(ts) for ts in tick_dates if ts in df.index]
+    tick_labels = [ts.strftime("%b %Y") for ts in tick_dates if ts in df.index]
+    ax.set_xticks(tick_positions)
+    ax.set_xticklabels(tick_labels, rotation=45, fontsize=8)
 
     plt.title(f"{feature_name} Across Sites Over Time", fontsize=16, pad=20)
     plt.xlabel("Year", fontsize=12)
@@ -72,6 +72,7 @@ def main():
         raise ValueError(f"Dataset '{args.dataset}' not found in {args.config}. Available: {list(all_cfg)}")
     cfg = all_cfg[args.dataset]["visualise"]
 
+    make_dicts = cfg.get("make_dicts", True)
     folder     = cfg["folder"]
     full_index = pd.date_range(cfg["date_range"]["start"], cfg["date_range"]["end"], freq="h")
     dicts_dir  = cfg["output"]["dicts_dir"]
@@ -82,11 +83,14 @@ def main():
     os.makedirs(dicts_dir, exist_ok=True)
     os.makedirs(image_dir, exist_ok=True)
 
-    print("Building per-pollutant comparison DataFrames...")
-    for feature in tqdm(features):
-        safe = feature.split(" ")[0]
-        feature_df = generate_comparison_df(feature, folder, full_index)
-        feature_df.to_csv(os.path.join(dicts_dir, f"{safe}_df.csv"))
+    if make_dicts:
+        print("Building per-pollutant comparison DataFrames...")
+        for feature in tqdm(features):
+            safe = feature.split(" ")[0]
+            feature_df = generate_comparison_df(feature, folder, full_index)
+            feature_df.to_csv(os.path.join(dicts_dir, f"{safe}_df.csv"))
+    else:
+        print("Skipping dict building (make_dicts: false in config)")
 
     print("Plotting heatmaps...")
     for feature in tqdm(features):
