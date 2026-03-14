@@ -56,7 +56,7 @@ epa:
 
 cpcb:
   preprocess:
-    zip: true
+    zip: false
     zip_path:     /mnt/2TB_WD/rishi/cpcb_data.zip
     unzip_dir:    /mnt/2TB_WD/rishi/cpcb/cpcb_unzipped
     input_folder: /mnt/2TB_WD/rishi/cpcb/cpcb_unzipped/cpcb_data
@@ -93,8 +93,7 @@ cpcb:
     input_dir: /home/student/rishi/CPCB/sites_comb_separate_pols
     output_dir: /home/student/rishi/CPCB/sites_imputed
     max_gap_hours: 336
-    min_data_pct: 70
-    n_neighbors: 5
+    max_data_missing: 30
     max_workers: 4
     date_range:
       start: "2022-07-01 00:00:00"

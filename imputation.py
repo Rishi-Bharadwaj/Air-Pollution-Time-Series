@@ -70,25 +70,12 @@ def mstl_impute(series: pd.Series, periods=(24, 168), robust=True) -> pd.Series:
 
     return output
 
-def safe_pol_name(pol):
-    return (
-        pol.replace("(", "")
-           .replace(")", "")
-           .replace("/", "_")
-           .replace(" ", "_")
-           .replace("µ", "u")
-           .replace("³", "3")
-    )
-
-
-def get_sites(dicts_dir, features, max_gap_hours, min_data_pct):
-    sites_by_pollutant_gap = {}
-    sites_by_pollutant_missing = {}
+def get_sites_per_pollutant(dicts_dir, features, max_gap_hours, max_data_missing):
+    sites_per_pollutant = {}
 
     for pol in features:
-        safe_key = pol.split(" ")[0]      # e.g. "PM2.5" — matches visualise.py naming
-        safe_pol = safe_pol_name(pol)     # e.g. "PM2.5_ug_m3" — matches preprocess naming
-        suffix = f"_{safe_pol}.csv"
+        safe_key = pol.split(" ")[0]
+        suffix = f"_{safe_key}.csv"
 
         df = pd.read_csv(
             os.path.join(dicts_dir, f"{safe_key}_df.csv"),
@@ -96,13 +83,13 @@ def get_sites(dicts_dir, features, max_gap_hours, min_data_pct):
         )
 
         missing_pct = df.isnull().sum(axis=0) * 100 / len(df)
-        good_gap, good_missing = [], []
+        valid_sites = []
 
         for col in df.columns:
             site_stem = col[: -len(suffix)] if col.endswith(suffix) else col
 
-            if missing_pct[col] <= (100 - min_data_pct):
-                good_missing.append(site_stem)
+            if missing_pct[col] > (max_data_missing):
+                continue
 
             is_missing = df[col].isnull().values
             max_gap = cur = 0
@@ -114,42 +101,30 @@ def get_sites(dicts_dir, features, max_gap_hours, min_data_pct):
                     cur = 0
 
             if max_gap <= max_gap_hours:
-                good_gap.append(site_stem)
+                valid_sites.append(site_stem)
 
-        sites_by_pollutant_gap[pol] = set(good_gap)
-        sites_by_pollutant_missing[pol] = set(good_missing)
+        sites_per_pollutant[pol] = valid_sites
+        print(f"{pol}: {len(valid_sites)} valid sites")
 
-        print(f"{pol}:")
-        print(f"  - Max gap <= {max_gap_hours}h: {len(good_gap)} sites")
-        print(f"  - Missing <= {100 - min_data_pct}%: {len(good_missing)} sites")
-
-    sites_gap = set.intersection(*sites_by_pollutant_gap.values())
-    sites_missing = set.intersection(*sites_by_pollutant_missing.values())
-    sites = list(sites_gap & sites_missing)
-
-    print(f"\nSites with max gap <= {max_gap_hours}h (all pollutants): {len(sites_gap)}")
-    print(f"Sites with missing <= {100 - min_data_pct}% (all pollutants): {len(sites_missing)}")
-    print(f"Sites meeting BOTH criteria: {len(sites)}")
-    return sites
+    return sites_per_pollutant
 
 
-def process_site(site_stem, input_dir, output_dir, features, date_start, date_end):
-    frames = {}
-    for pol in features:
-        path = os.path.join(input_dir, f"{site_stem}_{safe_pol_name(pol)}.csv")
-        df = pd.read_csv(path)
-        df["Timestamp"] = pd.to_datetime(df["Timestamp"])
-        frames[pol] = df.set_index("Timestamp")[pol]
+def process_site_pollutant(site_stem, pol, input_dir, output_dir, date_start, date_end):
+    formula = pol.split(" ")[0]
+    path = os.path.join(input_dir, f"{site_stem}_{formula}.csv")
+    df = pd.read_csv(path)
+    df["Timestamp"] = pd.to_datetime(df["Timestamp"])
+    series = df.set_index("Timestamp")[pol]
 
     full_index = pd.date_range(date_start, date_end, freq="h")
-    combined = pd.DataFrame(frames).reindex(full_index)
+    series = series.reindex(full_index)
+    series.name = pol
 
-    imputed = {pol: mstl_impute(combined[pol]) for pol in features}
-    df_imputed = pd.DataFrame(imputed, index=combined.index)
+    imputed = mstl_impute(series)
 
-    out = df_imputed.reset_index(names="Timestamp")
-    out.to_csv(os.path.join(output_dir, f"{site_stem}.csv"), index=False)
-    return site_stem
+    out = imputed.reset_index(names="Timestamp")
+    out.to_csv(os.path.join(output_dir, f"{site_stem}_{formula}.csv"), index=False)
+    return site_stem, pol
 
 
 def main():
@@ -165,7 +140,7 @@ def main():
     input_dir     = cfg["input_dir"]
     output_dir    = cfg["output_dir"]
     max_gap_hours = cfg["max_gap_hours"]
-    min_data_pct  = cfg["min_data_pct"]
+    max_data_missing  = cfg["max_data_missing"]
     max_workers   = cfg.get("max_workers", 4)
     date_start    = cfg["date_range"]["start"]
     date_end      = cfg["date_range"]["end"]
@@ -174,16 +149,16 @@ def main():
     os.makedirs(output_dir, exist_ok=True)
 
     print("Filtering sites by quality criteria...")
-    sites = get_sites(dicts_dir, features, max_gap_hours, min_data_pct)
+    sites_per_pollutant = get_sites_per_pollutant(dicts_dir, features, max_gap_hours, max_data_missing)
 
-    print(f"\nImputing {len(sites)} sites with {max_workers} workers...")
+    tasks = [(site, pol) for pol, sites in sites_per_pollutant.items() for site in sites]
+    print(f"\nImputing {len(tasks)} (site, pollutant) pairs with {max_workers} workers...")
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         futures = {
             executor.submit(
-                process_site, site, input_dir, output_dir,
-                features, date_start, date_end,
-            ): site
-            for site in sites
+                process_site_pollutant, site, pol, input_dir, output_dir, date_start, date_end,
+            ): (site, pol)
+            for site, pol in tasks
         }
         for future in tqdm(as_completed(futures), total=len(futures)):
             try:

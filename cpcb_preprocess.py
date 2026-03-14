@@ -33,11 +33,9 @@ def process_site(site, files, folder, output_dir):
     for pol in POLS:
         if pol not in x_df.columns or x_df[pol].isna().all():
             continue
-        safe_pol = (pol.replace("(", "").replace(")", "")
-                       .replace("/", "_").replace(" ", "_")
-                       .replace("µ", "u").replace("³", "3"))
+        formula = pol.split(" ")[0]
         pol_df = x_df[[pol]].reset_index()
-        pol_df.to_csv(os.path.join(output_dir, f"{site_stem}_{safe_pol}.csv"), index=False)
+        pol_df.to_csv(os.path.join(output_dir, f"{site_stem}_{formula}.csv"), index=False)
     return site
 
 

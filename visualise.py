@@ -10,12 +10,10 @@ from tqdm import tqdm
 
 def generate_comparison_df(feature, folder, full_index):
     feature_key = feature.split(" ")[0]
-    # Match as a delimited token to avoid e.g. "CO" matching "Connaught" in site names.
-    # Handles both EPA-style (_CO.csv) and CPCB-style (_CO_mg_m3.csv).
     site_dict = {}
     files = [f for f in sorted(os.listdir(folder))
              if os.path.isfile(os.path.join(folder, f))
-             and (f"_{feature_key}_" in f or f.endswith(f"_{feature_key}.csv"))]
+             and f.endswith(f"_{feature_key}.csv")]
     for file in files:
         df = pd.read_csv(os.path.join(folder, file))
         df["Timestamp"] = pd.to_datetime(df["Timestamp"])
