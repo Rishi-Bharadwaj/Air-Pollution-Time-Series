@@ -68,7 +68,7 @@ cpcb:
       start: "2022-07-01 00:00:00"
       end:   "2025-06-30 23:00:00"
     output:
-      dicts_dir: visualize_cpcb_dicts
+      dicts_dir: /mnt/2TB_WD/rishi/cpcb/vis_dicts
       image_dir:  visualize_cpcb_images
     features:
       - "PM2.5 (µg/m³)"
@@ -86,12 +86,12 @@ cpcb:
       "Ozone (µg/m³)": 160
 
   imputation:
-    dicts_dir: visualize_cpcb_dicts
+    dicts_dir: /mnt/2TB_WD/rishi/cpcb/vis_dicts
     input_dir: /mnt/2TB_WD/rishi/cpcb/separated
     output_dir: /mnt/2TB_WD/rishi/cpcb/sites_imputed
     max_gap_hours: 336
     max_data_missing: 30
-    max_workers: 32
+    max_workers: 24
     date_range:
       start: "2022-07-01 00:00:00"
       end:   "2025-06-30 23:00:00"
@@ -102,3 +102,23 @@ cpcb:
       - "SO2 (µg/m³)"
       - "CO (mg/m³)"
       - "Ozone (µg/m³)"
+
+  ttm:
+    model_path: "ibm-granite/granite-timeseries-ttm-r2"
+    input_dir:  /mnt/2TB_WD/rishi/cpcb/sites_imputed
+    output_dir: /mnt/2TB_WD/rishi/cpcb/ttm_results_v1
+    context_length:    168
+    prediction_length: 12
+    batch_size:        64
+    seed:              42
+    timestamp_column: "Timestamp"
+    id_columns: []
+
+  chronos:
+    model_path: "amazon/chronos-2"
+    input_dir:  /mnt/2TB_WD/rishi/cpcb/sites_imputed
+    output_dir: /mnt/2TB_WD/rishi/cpcb/chronos_results_v1
+    context_length:    168
+    prediction_length: 12
+    batch_size:        256
+    timestamp_column: "Timestamp"

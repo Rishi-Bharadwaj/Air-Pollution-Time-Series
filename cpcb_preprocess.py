@@ -29,7 +29,7 @@ def process_site(site, files, folder, output_dir):
     x_df = x_df.set_index("Timestamp").sort_index()
     x_df = x_df.resample("1h").median()
 
-    site_stem = os.path.splitext(site)[0]
+    site_stem = os.path.splitext(site)[0].replace("_15Min", "")
     for pol in POLS:
         if pol not in x_df.columns or x_df[pol].isna().all():
             continue

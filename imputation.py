@@ -76,7 +76,6 @@ def get_sites_per_pollutant(dicts_dir, features, max_gap_hours, max_data_missing
 
     for pol in features:
         safe_key = pol.split(" ")[0]
-        suffix = f"_{safe_key}.csv"
 
         df = pd.read_csv(
             os.path.join(dicts_dir, f"{safe_key}_df.csv"),
@@ -87,9 +86,7 @@ def get_sites_per_pollutant(dicts_dir, features, max_gap_hours, max_data_missing
         valid_sites = []
 
         for col in df.columns:
-            stem_no_ext = col[:-4] if col.endswith('.csv') else col
-            idx = stem_no_ext.rfind(f"_{safe_key}")
-            site_stem = stem_no_ext[:idx] if idx != -1 else stem_no_ext
+            site_stem = col.rsplit(f"_{safe_key}", 1)[0]
 
             if missing_pct[col] > (max_data_missing):
                 continue
@@ -125,7 +122,8 @@ def process_site_pollutant(site_stem, pol, input_dir, output_dir, date_start, da
 
     imputed = mstl_impute(series)
 
-    out = imputed.reset_index(name="Timestamp")
+    imputed.index.name = "Timestamp"
+    out = imputed.reset_index()
     out.to_csv(os.path.join(output_dir, f"{site_stem}_{formula}.csv"), index=False)
     return site_stem, pol
 
