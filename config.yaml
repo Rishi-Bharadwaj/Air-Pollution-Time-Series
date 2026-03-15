@@ -40,9 +40,8 @@ epa:
     input_dir: /home/student/rishi/EPA_sites_separate_pols
     output_dir: /home/student/rishi/EPA_sites_imputed
     max_gap_hours: 336
-    min_data_pct: 70
-    n_neighbors: 5
-    max_workers: 4
+    max_data_missing: 30
+    max_workers: 24
     date_range:
       start: "2022-07-01 00:00:00"
       end:   "2025-06-30 23:00:00"
