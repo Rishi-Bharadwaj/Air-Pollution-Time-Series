@@ -9,8 +9,6 @@ epa:
     target_start: "2022-07-01 00:00:00"
     target_end:   "2025-06-30 23:00:00"
 
-
-
   visualise:
     make_dicts: false
     folder: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
@@ -37,8 +35,8 @@ epa:
     
   imputation:
     dicts_dir: visualize_epa_dicts
-    input_dir: /home/student/rishi/EPA_sites_separate_pols
-    output_dir: /home/student/rishi/EPA_sites_imputed
+    input_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
+    output_dir: /mnt/2TB_WD/rishi/epa/imputed
     max_gap_hours: 336
     max_data_missing: 30
     max_workers: 24
