@@ -106,13 +106,29 @@ cpcb:
   ttm:
     model_path: "ibm-granite/granite-timeseries-ttm-r2"
     input_dir:  /mnt/2TB_WD/rishi/cpcb/sites_imputed
-    output_dir: /mnt/2TB_WD/rishi/cpcb/ttm_results_v1
-    context_length:    168
+    output_dir: /mnt/2TB_WD/rishi/cpcb/ttm_results_512
+    context_length:    512
     prediction_length: 12
     batch_size:        64
     seed:              42
     timestamp_column: "Timestamp"
     id_columns: []
+
+  ttm_analysis:
+    results_dir:       /mnt/2TB_WD/rishi/cpcb/ttm_results_v1
+    output_dir:        /mnt/2TB_WD/rishi/cpcb/ttm_results_v1_analysis
+    context_length:    168
+    prediction_length: 12
+    pollutants:        ["CO", "NO2", "Ozone", "PM10", "PM2.5", "SO2"]
+    only_summary:      false
+
+  chronos_analysis:
+    results_dir:       /mnt/2TB_WD/rishi/cpcb/chronos_results_v1
+    output_dir:        /mnt/2TB_WD/rishi/cpcb/chronos_results_v1_analysis
+    context_length:    168
+    prediction_length: 12
+    pollutants:        ["CO", "NO2", "Ozone", "PM10", "PM2.5", "SO2"]
+    only_summary:      false
 
   chronos:
     model_path: "amazon/chronos-2"
