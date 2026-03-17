@@ -13,7 +13,7 @@ from transformers import Trainer, TrainingArguments, set_seed
 from tsfm_public import TimeSeriesPreprocessor, get_datasets
 from tsfm_public.models.tinytimemixer.configuration_tinytimemixer import TinyTimeMixerConfig
 from tsfm_public.models.tinytimemixer.modeling_tinytimemixer import TinyTimeMixerForPrediction
-
+from tsfm_public.toolkit.get_model import get_model
 warnings.filterwarnings("ignore")
 
 
@@ -23,13 +23,16 @@ def load_config(path: str, dataset: str) -> dict:
 
 
 def load_model(cfg):
-    model_cfg = TinyTimeMixerConfig(
+    zeroshot_model = get_model(
+        cfg["model_path"],
         context_length=cfg["context_length"],
         prediction_length=cfg["prediction_length"],
+        freq_prefix_tuning=False,
+        freq=None,
+        prefer_l1_loss=False,
+        prefer_longer_context=True,
     )
-    return TinyTimeMixerForPrediction.from_pretrained(
-        cfg["model_path"], config=model_cfg, ignore_mismatched_sizes=False
-    )
+    return zeroshot_model
 
 
 def zeroshot_eval(data, cfg, column_specifiers, split_config, model):
@@ -42,7 +45,7 @@ def zeroshot_eval(data, cfg, column_specifiers, split_config, model):
         scaler_type="standard",
     )
 
-    dset_train, dset_valid, dset_test = get_datasets(tsp, data, split_config)
+    dset_train, dset_valid, dset_test = get_datasets(tsp, data, split_config,use_frequency_token=model.config.resolution_prefix_tuning)
 
     temp_dir = tempfile.mkdtemp()
     trainer = Trainer(

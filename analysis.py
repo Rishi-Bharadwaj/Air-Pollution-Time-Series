@@ -56,10 +56,13 @@ def main(config_path: str, dataset: str, model: str):
         if poll in dirs_by_poll:
             dirs_by_poll[poll].append((site, d))
 
-    # For each prediction step j, the 7 same-hour-of-day context indices are j, j+24, ..., j+144
+    # For each prediction step j, select same-hour-of-day indices from context.
+    # offset accounts for context windows that don't start on a clean day boundary.
+    offset = CONTEXT_LENGTH % 24
     same_hour_idx = np.array(
-        [[j + 24 * k for k in range(CONTEXT_LENGTH // 24)] for j in range(PREDICTION_LENGTH)]
-    )  # (12, 7)
+        [[(j + offset) % 24 + 24 * k for k in range(CONTEXT_LENGTH // 24)]
+         for j in range(PREDICTION_LENGTH)]
+    )  # (PREDICTION_LENGTH, CONTEXT_LENGTH // 24)
 
     per_window_dfs = {}
 
