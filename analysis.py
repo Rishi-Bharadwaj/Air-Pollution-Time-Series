@@ -166,7 +166,7 @@ def main(config_path: str, dataset: str, model: str):
     x       = np.arange(len(methods))
 
     for metric in ["RMSE", "MAE", "MASE"]:
-        col = f"{metric}_mean"
+        col = f"{metric}_median"
         for poll in POLLUTANTS:
             values = [
                 summary_df.loc[

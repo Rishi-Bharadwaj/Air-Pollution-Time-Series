@@ -68,7 +68,7 @@ epa:
     context_length:    512
     prediction_length: 12
     pollutants:        ["CO", "NO2", "Ozone", "PM10", "PM2.5", "SO2"]
-    only_summary:      false
+    only_summary:      true
 
 cpcb:
   preprocess:
@@ -139,7 +139,7 @@ cpcb:
     context_length:    512
     prediction_length: 12
     pollutants:        ["CO", "NO2", "Ozone", "PM10", "PM2.5", "SO2"]
-    only_summary:      false
+    only_summary:      true
 
   chronos_analysis:
     results_dir:       /mnt/2TB_WD/rishi/cpcb/chronos_results_v1
