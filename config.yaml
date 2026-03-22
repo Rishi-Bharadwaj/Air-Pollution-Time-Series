@@ -51,24 +51,6 @@ epa:
       - "CO (mg/m³)"
       - "Ozone (µg/m³)"
 
-  ttm:
-    model_path: "ibm-granite/granite-timeseries-ttm-r2"
-    input_dir:  /mnt/2TB_WD/rishi/epa/imputed
-    output_dir: /mnt/2TB_WD/rishi/epa/ttm_results_512_12_original
-    context_length:    512
-    prediction_length: 12
-    batch_size:        64
-    seed:              42
-    timestamp_column: "Timestamp"
-    id_columns: []
-
-  ttm_analysis:
-    results_dir:       /mnt/2TB_WD/rishi/epa/ttm_results_512_12_original
-    output_dir:        /mnt/2TB_WD/rishi/epa/ttm_results_512_12_original_analysis
-    context_length:    512
-    prediction_length: 12
-    pollutants:        ["CO", "NO2", "Ozone", "PM10", "PM2.5", "SO2"]
-    only_summary:      true
 
 cpcb:
   preprocess:
@@ -122,38 +104,27 @@ cpcb:
       - "CO (mg/m³)"
       - "Ozone (µg/m³)"
 
-  ttm:
-    model_path: "ibm-granite/granite-timeseries-ttm-r2"
-    input_dir:  /mnt/2TB_WD/rishi/cpcb/sites_imputed
-    output_dir: /mnt/2TB_WD/rishi/cpcb/ttm_results_v3
-    context_length:    512
-    prediction_length: 12
-    batch_size:        64
-    seed:              42
-    timestamp_column: "Timestamp"
-    id_columns: []
 
-  ttm_analysis:
-    results_dir:       /mnt/2TB_WD/rishi/cpcb/ttm_results_v3
-    output_dir:        /mnt/2TB_WD/rishi/cpcb/ttm_results_v3_analysis
-    context_length:    512
-    prediction_length: 12
-    pollutants:        ["CO", "NO2", "Ozone", "PM10", "PM2.5", "SO2"]
-    only_summary:      true
+aurn:
+  preprocess:
+    zip: false
+    zip_path:         /mnt/2TB_WD/rishi/aurn.zip
+    unzip_dir:        /mnt/2TB_WD/rishi/aurn
+    rdata_conversion: false
+    rdata_dir:        /mnt/2TB_WD/rishi/aurn/aurn_data
+    csv_dir:          /mnt/2TB_WD/rishi/aurn/aurn_csv
+    output_dir:       /mnt/2TB_WD/rishi/aurn/aurn_processed
+    date_start:       "2022-07-01 00:00:00"
+    date_end:         "2025-06-30 23:00:00"
+    max_workers:      24
 
-  chronos_analysis:
-    results_dir:       /mnt/2TB_WD/rishi/cpcb/chronos_results_v1
-    output_dir:        /mnt/2TB_WD/rishi/cpcb/chronos_results_v1_analysis
-    context_length:    168
-    prediction_length: 12
-    pollutants:        ["CO", "NO2", "Ozone", "PM10", "PM2.5", "SO2"]
-    only_summary:      false
 
-  chronos:
-    model_path: "amazon/chronos-2"
-    input_dir:  /mnt/2TB_WD/rishi/cpcb/sites_imputed
-    output_dir: /mnt/2TB_WD/rishi/cpcb/chronos_results_v1
-    context_length:    168
-    prediction_length: 12
-    batch_size:        256
-    timestamp_column: "Timestamp"
+cnemc:
+  preprocess:
+    zip: false
+    zip_path:   /mnt/2TB_WD/rishi/cnemc_data.zip
+    unzip_dir:  /mnt/2TB_WD/rishi/cnemc_data
+    data_dir:   /mnt/2TB_WD/rishi/cnemc_data/cnemc_data
+    output_dir: /mnt/2TB_WD/rishi/cnemc_data/by_site_pollutant
+    start_date: "2022-07-01 00:00:00"
+    end_date:   "2025-06-30 23:00:00"

@@ -51,7 +51,7 @@ def _load_and_separate(path, pol, by_year_by_site_dir):
 
 def separate_and_filter(df, pol, by_year_by_site_dir):
     df.columns = df.columns.str.strip().str.replace("_", " ")
-    df["Timestamp"] = pd.to_datetime(df["Date GMT"] + " " + df["Time GMT"], format="%Y-%m-%d %H:%M")
+    df["Timestamp"] = pd.to_datetime(df["Date Local"] + " " + df["Time Local"], format="%Y-%m-%d %H:%M")
     s = df["Parameter Name"].iloc[0] + " " + df["Units of Measure"].iloc[0]
     year = pd.to_datetime(df["Date Local"].iloc[0]).year
     df[s] = df["Sample Measurement"]
