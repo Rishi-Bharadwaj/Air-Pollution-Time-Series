@@ -10,13 +10,13 @@ epa:
     target_end:   "2025-06-30 23:00:00"
 
   visualise:
-    make_dicts: false
+    make_dicts: true
     folder: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
     date_range:
       start: "2022-07-01 00:00:00"
       end:   "2025-06-30 23:00:00"
     output:
-      dicts_dir: visualize_epa_dicts
+      dicts_dir: /mnt/2TB_WD/rishi/epa/visualize_dicts
       image_dir:  visualize_epa_images
     features:
       - "PM2.5 (µg/m³)"
@@ -34,7 +34,7 @@ epa:
       "Ozone (µg/m³)": 100
     
   imputation:
-    dicts_dir: visualize_epa_dicts
+    dicts_dir: /mnt/2TB_WD/rishi/epa/visualize_dicts
     input_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
     output_dir: /mnt/2TB_WD/rishi/epa/imputed
     max_gap_hours: 336
@@ -110,13 +110,55 @@ aurn:
     zip: false
     zip_path:         /mnt/2TB_WD/rishi/aurn.zip
     unzip_dir:        /mnt/2TB_WD/rishi/aurn
-    rdata_conversion: false
+    rdata_conversion: true
     rdata_dir:        /mnt/2TB_WD/rishi/aurn/aurn_data
     csv_dir:          /mnt/2TB_WD/rishi/aurn/aurn_csv
     output_dir:       /mnt/2TB_WD/rishi/aurn/aurn_processed
     date_start:       "2022-07-01 00:00:00"
     date_end:         "2025-06-30 23:00:00"
     max_workers:      24
+
+  visualise:
+    make_dicts: true
+    folder: /mnt/2TB_WD/rishi/aurn/aurn_processed
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: /mnt/2TB_WD/rishi/aurn/vis_dicts
+      image_dir:  visualize_aurn_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 15
+      "PM10 (µg/m³)":  45
+      "NO2 (µg/m³)":   25
+      "SO2 (µg/m³)":   40
+      "CO (mg/m³)":    4
+      "Ozone (µg/m³)": 100
+
+  imputation:
+    dicts_dir: /mnt/2TB_WD/rishi/aurn/vis_dicts
+    input_dir: /mnt/2TB_WD/rishi/aurn/aurn_processed
+    output_dir: /mnt/2TB_WD/rishi/aurn/imputed
+    max_gap_hours: 336
+    max_data_missing: 30
+    max_workers: 24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
 
 
 cnemc:
@@ -128,3 +170,45 @@ cnemc:
     output_dir: /mnt/2TB_WD/rishi/cnemc_data/by_site_pollutant
     start_date: "2022-07-01 00:00:00"
     end_date:   "2025-06-30 23:00:00"
+
+  visualise:
+    make_dicts: true
+    folder: /mnt/2TB_WD/rishi/cnemc_data/by_site_pollutant
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    output:
+      dicts_dir: /mnt/2TB_WD/rishi/cnemc_data/vis_dicts
+      image_dir:  visualize_cnemc_images
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"
+    pollutant_limits:
+      "PM2.5 (µg/m³)": 15
+      "PM10 (µg/m³)":  45
+      "NO2 (µg/m³)":   25
+      "SO2 (µg/m³)":   40
+      "CO (mg/m³)":    4
+      "Ozone (µg/m³)": 100
+
+  imputation:
+    dicts_dir: /mnt/2TB_WD/rishi/cnemc_data/vis_dicts
+    input_dir: /mnt/2TB_WD/rishi/cnemc_data/by_site_pollutant
+    output_dir: /mnt/2TB_WD/rishi/cnemc_data/imputed
+    max_gap_hours: 336
+    max_data_missing: 30
+    max_workers: 24
+    date_range:
+      start: "2022-07-01 00:00:00"
+      end:   "2025-06-30 23:00:00"
+    features:
+      - "PM2.5 (µg/m³)"
+      - "PM10 (µg/m³)"
+      - "NO2 (µg/m³)"
+      - "SO2 (µg/m³)"
+      - "CO (mg/m³)"
+      - "Ozone (µg/m³)"

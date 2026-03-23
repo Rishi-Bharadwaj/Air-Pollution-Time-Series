@@ -17,7 +17,6 @@ pollutant_col = {
     "SO2":   "SO2 (µg/m³)",
 }
 pollutant_name = {k: v.split(" ")[0] for k, v in pollutant_col.items()}
-pollutant_name["O3"] = "Ozone"
 
 KEEP_TYPES = set(pollutant_col.keys())
 

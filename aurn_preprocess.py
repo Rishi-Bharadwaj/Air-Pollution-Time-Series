@@ -23,7 +23,9 @@ def rdata_to_dataframe(file_path):
     converted = rdata.conversion.convert(parsed)
     col_name = list(converted.keys())[0]
     df = pd.DataFrame(converted[col_name])
-    df["date"] = pd.to_datetime(df["date"], unit="s", utc=True)
+    df["date"] = (pd.to_datetime(df["date"], unit="s", utc=True)
+                  .dt.tz_convert("Europe/London")
+                  .dt.tz_localize(None))
     return df
 
 
@@ -40,15 +42,15 @@ def process_site(args):
     site, files, csv_dir, proc_dir, date_start, date_end, full_index = args
     dfs = [pd.read_csv(os.path.join(csv_dir, f)) for f in sorted(files)]
     combined = pd.concat(dfs, ignore_index=True)
-    combined["date"] = pd.to_datetime(combined["date"],)
+    combined["date"] = pd.to_datetime(combined["date"])
     combined = (combined.dropna(subset=["date"])
                         .set_index("date")
                         .rename_axis("Timestamp")
-                        .sort_index()
-                        .loc[date_start:date_end])
+                        .sort_index())
+    combined = combined[~combined.index.duplicated(keep="first")]
+    combined = combined.loc[date_start:date_end]
     if combined.empty:
         return site, 0
-    combined = combined.resample("1h").median()
     combined.columns = combined.columns.str.lower().str.strip()
 
     saved = 0
@@ -123,7 +125,7 @@ def main():
             site_files.setdefault(site, []).append(f)
 
     full_index = pd.date_range(
-        start=date_start, end=date_end, freq="h", name="Timestamp", tz="UTC"
+        start=date_start, end=date_end, freq="h", name="Timestamp"
     )
 
     print(f"Processing {len(site_files)} sites with {max_workers} workers...")

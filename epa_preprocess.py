@@ -102,11 +102,11 @@ def join_years(by_year_by_site_dir, by_site_all_years_dir, target_start, target_
 def main():
     parser = argparse.ArgumentParser(description="Preprocess EPA hourly CSVs.")
     parser.add_argument("config", help="Path to config.yaml")
-    parser.add_argument("dataset", help="Dataset key in config (e.g. epa)")
+    # parser.add_argument("dataset", help="Dataset key in config (e.g. epa)")
     args = parser.parse_args()
 
     with open(args.config) as f:
-        cfg = yaml.safe_load(f)[args.dataset]["preprocess"]
+        cfg = yaml.safe_load(f)["epa"]["preprocess"]
 
     do_zip       = cfg.get("zip", True)
     zip_path     = cfg.get("zip_path")

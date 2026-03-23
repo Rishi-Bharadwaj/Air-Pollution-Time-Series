@@ -42,11 +42,11 @@ def process_site(site, files, folder, output_dir):
 def main():
     parser = argparse.ArgumentParser(description="Preprocess CPCB site CSVs.")
     parser.add_argument("config", help="Path to config.yaml")
-    parser.add_argument("dataset", help="Dataset key in config (e.g. cpcb)")
+    # parser.add_argument("dataset", help="Dataset key in config (e.g. cpcb)")
     args = parser.parse_args()
 
     with open(args.config) as f:
-        cfg = yaml.safe_load(f)[args.dataset]["preprocess"]
+        cfg = yaml.safe_load(f)["cpcb"]["preprocess"]
 
     do_zip       = cfg.get("zip", True)
     zip_path     = cfg["zip_path"]
