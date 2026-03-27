@@ -71,6 +71,10 @@ def mstl_impute(series: pd.Series, periods=(24, 168), robust=True) -> pd.Series:
 
     return output
 
+def replace_negatives_with_nan(df: pd.DataFrame) -> pd.DataFrame:
+    return df.where(df >= 0)
+
+
 def get_sites_per_pollutant(dicts_dir, features, max_gap_hours, max_data_missing):
     sites_per_pollutant = {}
 
@@ -81,6 +85,7 @@ def get_sites_per_pollutant(dicts_dir, features, max_gap_hours, max_data_missing
             os.path.join(dicts_dir, f"{safe_key}_df.csv"),
             index_col=0, parse_dates=True,
         )
+        df = replace_negatives_with_nan(df)
 
         missing_pct = df.isnull().sum(axis=0) * 100 / len(df)
         valid_sites = []
@@ -119,6 +124,7 @@ def process_site_pollutant(site_stem, pol, input_dir, output_dir, date_start, da
     full_index = pd.date_range(date_start, date_end, freq="h")
     series = series.reindex(full_index)
     series.name = pol
+    series = replace_negatives_with_nan(series)
 
     imputed = mstl_impute(series)
 
