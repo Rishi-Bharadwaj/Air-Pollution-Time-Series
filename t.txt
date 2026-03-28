@@ -1,0 +1,6 @@
+https://github.com/Rishi-Bharadwaj/Air-Pollution-Time-Series/blob/a5000_workstation/ttm_bench-v2.ipynb
+
+https://github.com/Rishi-Bharadwaj/Air-Pollution-Time-Series/blob/a5000_workstation/ttm_analysis.ipynb
+
+
+rsync -avh --progress /home/rishi/"ML Projects"/"Air Pollution"/Datasets/epa_data student@workstation-a5000:/home/student/rishi/epa_data

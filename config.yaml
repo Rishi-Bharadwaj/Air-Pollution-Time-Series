@@ -1,22 +1,21 @@
 epa:
   preprocess:
-    zip: false
-    zip_path:     /mnt/2TB_WD/rishi/epa_data
-    unzip_dir: /mnt/2TB_WD/rishi/epa
-    years: [2022, 2023, 2024, 2025]
-    by_year_by_site_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_by_year
-    by_site_all_years_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
+    zip: true
+    zip_path:     /home/rishi/ML Projects/Air Pollution/Datasets/epa_data
+    unzip_dir: /home/rishi/ML Projects/Air Pollution/EPA/unzip_dir
+    by_year_by_site_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_by_year
+    by_site_all_years_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
     target_start: "2022-07-01 00:00:00"
     target_end:   "2025-06-30 23:00:00"
 
   visualise:
     make_dicts: true
-    folder: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
+    folder: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
     date_range:
       start: "2022-07-01 00:00:00"
       end:   "2025-06-30 23:00:00"
     output:
-      dicts_dir: /mnt/2TB_WD/rishi/epa/visualize_dicts
+      dicts_dir: home/rishi/ML Projects/Air Pollution/EPA/visualize_dicts
       image_dir:  visualize_epa_images
     features:
       - "PM2.5 (µg/m³)"
@@ -34,9 +33,9 @@ epa:
       "Ozone (µg/m³)": 100
     
   imputation:
-    dicts_dir: /mnt/2TB_WD/rishi/epa/visualize_dicts
-    input_dir: /mnt/2TB_WD/rishi/epa/epa_data_by_site_all_years
-    output_dir: /mnt/2TB_WD/rishi/epa/imputed
+    dicts_dir: home/rishi/ML Projects/Air Pollution/EPA/visualize_dicts
+    input_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
+    output_dir: /home/rishi/ML Projects/Air Pollution/EPA/imputed
     max_gap_hours: 336
     max_data_missing: 30
     max_workers: 24
@@ -56,20 +55,20 @@ cpcb:
   preprocess:
     zip: false
     zip_path:     /mnt/2TB_WD/rishi/cpcb_data.zip
-    unzip_dir:    /mnt/2TB_WD/rishi/cpcb/cpcb_unzipped
-    input_folder: /mnt/2TB_WD/rishi/cpcb/cpcb_unzipped/cpcb_data
-    output_dir:   /mnt/2TB_WD/rishi/cpcb/separated
+    unzip_dir:    /home/rishi/ML Projects/Air Pollution/Datasets/cpcb_data
+    input_folder: /home/rishi/ML Projects/Air Pollution/Datasets/cpcb_data
+    output_dir:   /home/rishi/ML Projects/Air Pollution/CPCB/separated
     max_workers:  24
 
 
   visualise:
     make_dicts: true
-    folder: /mnt/2TB_WD/rishi/cpcb/separated
+    folder: /home/rishi/ML Projects/Air Pollution/CPCB/separated
     date_range:
       start: "2022-07-01 00:00:00"
       end:   "2025-06-30 23:00:00"
     output:
-      dicts_dir: /mnt/2TB_WD/rishi/cpcb/vis_dicts
+      dicts_dir: /home/rishi/ML Projects/Air Pollution/CPCB/vis_dicts
       image_dir:  visualize_cpcb_images
     features:
       - "PM2.5 (µg/m³)"
@@ -87,9 +86,9 @@ cpcb:
       "Ozone (µg/m³)": 160
 
   imputation:
-    dicts_dir: /mnt/2TB_WD/rishi/cpcb/vis_dicts
-    input_dir: /mnt/2TB_WD/rishi/cpcb/separated
-    output_dir: /mnt/2TB_WD/rishi/cpcb/sites_imputed
+    dicts_dir: /home/rishi/ML Projects/Air Pollution/CPCB/vis_dicts
+    input_dir: /home/rishi/ML Projects/Air Pollution/CPCB/separated
+    output_dir: /home/rishi/ML Projects/Air Pollution/CPCB/sites_imputed
     max_gap_hours: 336
     max_data_missing: 30
     max_workers: 24
@@ -111,21 +110,21 @@ aurn:
     zip_path:         /mnt/2TB_WD/rishi/aurn.zip
     unzip_dir:        /mnt/2TB_WD/rishi/aurn
     rdata_conversion: true
-    rdata_dir:        /mnt/2TB_WD/rishi/aurn/aurn_data
-    csv_dir:          /mnt/2TB_WD/rishi/aurn/aurn_csv
-    output_dir:       /mnt/2TB_WD/rishi/aurn/aurn_processed
+    rdata_dir:        /home/rishi/ML Projects/Air Pollution/Datasets/aurn_data
+    csv_dir:          /home/rishi/ML Projects/Air Pollution/AURN/aurn_csv
+    output_dir:       /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
     date_start:       "2022-07-01 00:00:00"
     date_end:         "2025-06-30 23:00:00"
     max_workers:      24
 
   visualise:
     make_dicts: true
-    folder: /mnt/2TB_WD/rishi/aurn/aurn_processed
+    folder: /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
     date_range:
       start: "2022-07-01 00:00:00"
       end:   "2025-06-30 23:00:00"
     output:
-      dicts_dir: /mnt/2TB_WD/rishi/aurn/vis_dicts
+      dicts_dir: /home/rishi/ML Projects/Air Pollution/AURN/vis_dicts
       image_dir:  visualize_aurn_images
     features:
       - "PM2.5 (µg/m³)"
@@ -143,9 +142,9 @@ aurn:
       "Ozone (µg/m³)": 100
 
   imputation:
-    dicts_dir: /mnt/2TB_WD/rishi/aurn/vis_dicts
-    input_dir: /mnt/2TB_WD/rishi/aurn/aurn_processed
-    output_dir: /mnt/2TB_WD/rishi/aurn/imputed
+    dicts_dir: /home/rishi/ML Projects/Air Pollution/AURN/vis_dicts
+    input_dir: /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
+    output_dir: /home/rishi/ML Projects/Air Pollution/AURN/imputed
     max_gap_hours: 336
     max_data_missing: 30
     max_workers: 24
@@ -166,19 +165,19 @@ cnemc:
     zip: false
     zip_path:   /mnt/2TB_WD/rishi/cnemc_data.zip
     unzip_dir:  /mnt/2TB_WD/rishi/cnemc_data
-    data_dir:   /mnt/2TB_WD/rishi/cnemc_data/cnemc_data
-    output_dir: /mnt/2TB_WD/rishi/cnemc_data/by_site_pollutant
+    data_dir:   /home/rishi/ML Projects/Air Pollution/Datasets/cnemc_data
+    output_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
     start_date: "2022-07-01 00:00:00"
     end_date:   "2025-06-30 23:00:00"
 
   visualise:
     make_dicts: true
-    folder: /mnt/2TB_WD/rishi/cnemc_data/by_site_pollutant
+    folder: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
     date_range:
       start: "2022-07-01 00:00:00"
       end:   "2025-06-30 23:00:00"
     output:
-      dicts_dir: /mnt/2TB_WD/rishi/cnemc_data/vis_dicts
+      dicts_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/vis_dicts
       image_dir:  visualize_cnemc_images
     features:
       - "PM2.5 (µg/m³)"
@@ -196,9 +195,9 @@ cnemc:
       "Ozone (µg/m³)": 100
 
   imputation:
-    dicts_dir: /mnt/2TB_WD/rishi/cnemc_data/vis_dicts
-    input_dir: /mnt/2TB_WD/rishi/cnemc_data/by_site_pollutant
-    output_dir: /mnt/2TB_WD/rishi/cnemc_data/imputed
+    dicts_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/vis_dicts
+    input_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
+    output_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/imputed
     max_gap_hours: 336
     max_data_missing: 30
     max_workers: 24

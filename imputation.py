@@ -41,7 +41,7 @@ def mstl_impute(series: pd.Series, periods=(24, 168), robust=True) -> pd.Series:
     mstl = MSTL(
         prelim_filled,
         periods=periods,
-        iterate=1,
+        iterate=2,
         stl_kwargs={"robust": robust}
     )
     result = mstl.fit()
@@ -68,6 +68,7 @@ def mstl_impute(series: pd.Series, periods=(24, 168), robust=True) -> pd.Series:
     # --- Step 8: Write back ONLY to originally missing positions ---
     output = series.copy()
     output[missing_mask] = fully_imputed[missing_mask]
+    output = output.clip(lower=0, upper=series.max())
 
     return output
 

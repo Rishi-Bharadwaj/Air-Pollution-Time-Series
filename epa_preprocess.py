@@ -111,11 +111,13 @@ def main():
     do_zip       = cfg.get("zip", True)
     zip_path     = cfg.get("zip_path")
     unzip_dir         = cfg["unzip_dir"]
-    years        = cfg["years"]
     by_year_by_site_dir   = cfg["by_year_by_site_dir"]
     by_site_all_years_dir = cfg["by_site_all_years_dir"]
     target_start = cfg["target_start"]
     target_end   = cfg["target_end"]
+    start_year= pd.to_datetime(target_start).year
+    end_year= pd.to_datetime(target_end).year
+    years = range(start_year, end_year)
 
     if do_zip:
         print(f"Unzipping zips from {zip_path} -> {unzip_dir}")
