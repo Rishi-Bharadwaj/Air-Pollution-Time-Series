@@ -117,7 +117,7 @@ def main():
     target_end   = cfg["target_end"]
     start_year= pd.to_datetime(target_start).year
     end_year= pd.to_datetime(target_end).year
-    years = range(start_year, end_year)
+    years = range(start_year, end_year+1)
 
     if do_zip:
         print(f"Unzipping zips from {zip_path} -> {unzip_dir}")
@@ -145,7 +145,7 @@ def main():
                 continue
             tasks.append((path, pol))
 
-    with ProcessPoolExecutor(max_workers=6) as executor:
+    with ProcessPoolExecutor(max_workers=3) as executor:
         futures = {executor.submit(_load_and_separate, path, pol, by_year_by_site_dir): path
                    for path, pol in tasks}
         for future in tqdm(as_completed(futures), total=len(futures), desc="Splitting files"):
