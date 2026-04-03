@@ -103,11 +103,11 @@ def process_location(loc_id, files, output_dir):
 def main():
     parser = argparse.ArgumentParser(description="Preprocess OpenAQ data for a country.")
     parser.add_argument("config", help="Path to config.yaml")
-    parser.add_argument("country", help="Country key in config (e.g. australia, brazil)")
+    parser.add_argument("dataset", help="Dataset key in config (e.g. openaq_australia, openaq_brazil)")
     args = parser.parse_args()
 
     with open(args.config) as f:
-        cfg = yaml.safe_load(f)["openaq"][args.country]["preprocess"]
+        cfg = yaml.safe_load(f)[args.dataset]["preprocess"]
 
     raw_dir    = cfg["raw_dir"]
     country    = cfg["country_name"]
