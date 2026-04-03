@@ -160,6 +160,48 @@ aurn:
       - "Ozone (µg/m³)"
 
 
+openaq:
+  australia:
+    preprocess:
+      raw_dir:       /home/rishi/ML Projects/Air Pollution/openaq_raw2
+      country_name:  Australia
+      unzip_dir:     /home/rishi/ML Projects/Air Pollution/openaq_unzipped/Australia
+      output_dir:    /home/rishi/ML Projects/Air Pollution/OpenAQ/Australia/processed
+      start_year:    2022
+      end_year:      2024
+      max_workers:   8
+
+  brazil:
+    preprocess:
+      raw_dir:       /home/rishi/ML Projects/Air Pollution/openaq_raw2
+      country_name:  Brazil
+      unzip_dir:     /home/rishi/ML Projects/Air Pollution/openaq_unzipped/Brazil
+      output_dir:    /home/rishi/ML Projects/Air Pollution/OpenAQ/Brazil/processed
+      start_year:    2022
+      end_year:      2024
+      max_workers:   8
+
+  france:
+    preprocess:
+      raw_dir:       /home/rishi/ML Projects/Air Pollution/openaq_raw2
+      country_name:  France
+      unzip_dir:     /home/rishi/ML Projects/Air Pollution/openaq_unzipped/France
+      output_dir:    /home/rishi/ML Projects/Air Pollution/OpenAQ/France/processed
+      start_year:    2022
+      end_year:      2024
+      max_workers:   8
+
+  germany:
+    preprocess:
+      raw_dir:       /home/rishi/ML Projects/Air Pollution/openaq_raw2
+      country_name:  Germany
+      unzip_dir:     /home/rishi/ML Projects/Air Pollution/openaq_unzipped/Germany
+      output_dir:    /home/rishi/ML Projects/Air Pollution/OpenAQ/Germany/processed
+      start_year:    2022
+      end_year:      2024
+      max_workers:   8
+
+
 cnemc:
   preprocess:
     zip: false
