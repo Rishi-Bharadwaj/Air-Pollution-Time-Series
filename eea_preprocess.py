@@ -43,7 +43,7 @@ def convert_parquet(fname, folder, suffix, base_out_dir, start_date, end_date):
     if df.empty:
         return "skip"
     stem = fname.replace(".parquet", "")
-    out_path = os.path.join(base_out_dir, country, f"{stem}_{suffix}.csv")
+    out_path = os.path.join(base_out_dir, country, "raw", f"{stem}_{suffix}.csv")
     df.to_csv(out_path, index=False)
     return "save"
 
@@ -98,7 +98,7 @@ def main():
     max_workers     = cfg.get("max_workers", 16)
 
     for c in COUNTRIES:
-        os.makedirs(os.path.join(base_out_dir, c), exist_ok=True)
+        os.makedirs(os.path.join(base_out_dir, c, "raw"), exist_ok=True)
 
     # Step 1: parquet → CSV
     if do_convert:
@@ -133,7 +133,7 @@ def main():
 
     saved, skipped = 0, 0
     for country in sorted(COUNTRIES):
-        input_dir = os.path.join(base_out_dir, country)
+        input_dir = os.path.join(base_out_dir, country, "raw")
         proc_dir  = os.path.join(base_out_dir, country, "processed")
         os.makedirs(proc_dir, exist_ok=True)
 
