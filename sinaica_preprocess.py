@@ -48,7 +48,7 @@ def get_year(session, station_id, parameter, year) -> pd.DataFrame:
         "estacionId": station_id,
         "param":      parameter,
         "fechaIni":   f"{year}-01-01",
-        "rango":      f"{year}-12-31",
+        "rango":      f"{year}-12-31", # To the best of my understanding from the javascript webpage and the experiments I tried, rango is not actually range, it is end date.  
         "tipoDatos":  "",
     }
     r = session.post(
