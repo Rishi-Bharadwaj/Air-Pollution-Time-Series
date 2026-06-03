@@ -1,54 +1,54 @@
-epa:
-  preprocess:
-    zip: true
-    zip_path:     /home/rishi/ML Projects/Air Pollution/Datasets/epa_data
-    unzip_dir: /home/rishi/ML Projects/Air Pollution/EPA/unzip_dir
-    by_year_by_site_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_by_year
-    by_site_all_years_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
-    target_start: "2022-07-01 00:00:00"
-    target_end:   "2025-06-30 23:00:00"
+# epa:
+#   preprocess:
+#     zip: true
+#     zip_path:     /home/rishi/ML Projects/Air Pollution/Datasets/epa_data
+#     unzip_dir: /home/rishi/ML Projects/Air Pollution/EPA/unzip_dir
+#     by_year_by_site_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_by_year
+#     by_site_all_years_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
+#     target_start: "2022-07-01 00:00:00"
+#     target_end:   "2025-06-30 23:00:00"
 
-  visualise:
-    make_dicts: true
-    folder: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    output:
-      dicts_dir: home/rishi/ML Projects/Air Pollution/EPA/visualize_dicts
-      image_dir:  visualize_epa_images
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
-    pollutant_limits:
-      "PM2.5 (µg/m³)": 15
-      "PM10 (µg/m³)":  45
-      "NO2 (µg/m³)":   25
-      "SO2 (µg/m³)":   40
-      "CO (mg/m³)":    4
-      "Ozone (µg/m³)": 100
+#   visualise:
+#     make_dicts: true
+#     folder: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     output:
+#       dicts_dir: home/rishi/ML Projects/Air Pollution/EPA/visualize_dicts
+#       image_dir:  visualize_epa_images
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
+#     pollutant_limits:
+#       "PM2.5 (µg/m³)": 15
+#       "PM10 (µg/m³)":  45
+#       "NO2 (µg/m³)":   25
+#       "SO2 (µg/m³)":   40
+#       "CO (mg/m³)":    4
+#       "Ozone (µg/m³)": 100
     
-  imputation:
-    dicts_dir: home/rishi/ML Projects/Air Pollution/EPA/visualize_dicts
-    input_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
-    output_dir: /home/rishi/ML Projects/Air Pollution/EPA/imputed
-    max_gap_hours: 336
-    max_data_missing: 30
-    max_workers: 24
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
+#   imputation:
+#     dicts_dir: home/rishi/ML Projects/Air Pollution/EPA/visualize_dicts
+#     input_dir: /home/rishi/ML Projects/Air Pollution/EPA/epa_data_by_site_all_years
+#     output_dir: /home/rishi/ML Projects/Air Pollution/EPA/imputed
+#     max_gap_hours: 336
+#     max_data_missing: 30
+#     max_workers: 24
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
 
 
 cpcb:
@@ -104,260 +104,260 @@ cpcb:
       - "Ozone (µg/m³)"
 
 
-aurn:
-  preprocess:
-    zip: false
-    zip_path:         /mnt/2TB_WD/rishi/aurn.zip
-    unzip_dir:        /mnt/2TB_WD/rishi/aurn
-    rdata_conversion: true
-    rdata_dir:        /home/rishi/ML Projects/Air Pollution/Datasets/aurn_data
-    csv_dir:          /home/rishi/ML Projects/Air Pollution/AURN/aurn_csv
-    output_dir:       /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
-    date_start:       "2022-07-01 00:00:00"
-    date_end:         "2025-06-30 23:00:00"
-    max_workers:      24
+# aurn:
+#   preprocess:
+#     zip: false
+#     zip_path:         /mnt/2TB_WD/rishi/aurn.zip
+#     unzip_dir:        /mnt/2TB_WD/rishi/aurn
+#     rdata_conversion: true
+#     rdata_dir:        /home/rishi/ML Projects/Air Pollution/Datasets/aurn_data
+#     csv_dir:          /home/rishi/ML Projects/Air Pollution/AURN/aurn_csv
+#     output_dir:       /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
+#     date_start:       "2022-07-01 00:00:00"
+#     date_end:         "2025-06-30 23:00:00"
+#     max_workers:      24
 
-  visualise:
-    make_dicts: true
-    folder: /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    output:
-      dicts_dir: /home/rishi/ML Projects/Air Pollution/AURN/vis_dicts
-      image_dir:  visualize_aurn_images
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
-    pollutant_limits:
-      "PM2.5 (µg/m³)": 15
-      "PM10 (µg/m³)":  45
-      "NO2 (µg/m³)":   25
-      "SO2 (µg/m³)":   40
-      "CO (mg/m³)":    4
-      "Ozone (µg/m³)": 100
+#   visualise:
+#     make_dicts: true
+#     folder: /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     output:
+#       dicts_dir: /home/rishi/ML Projects/Air Pollution/AURN/vis_dicts
+#       image_dir:  visualize_aurn_images
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
+#     pollutant_limits:
+#       "PM2.5 (µg/m³)": 15
+#       "PM10 (µg/m³)":  45
+#       "NO2 (µg/m³)":   25
+#       "SO2 (µg/m³)":   40
+#       "CO (mg/m³)":    4
+#       "Ozone (µg/m³)": 100
 
-  imputation:
-    dicts_dir: /home/rishi/ML Projects/Air Pollution/AURN/vis_dicts
-    input_dir: /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
-    output_dir: /home/rishi/ML Projects/Air Pollution/AURN/imputed
-    max_gap_hours: 336
-    max_data_missing: 30
-    max_workers: 24
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
-
-
-eea:
-  preprocess:
-    convert_parquet: true
-    download_folders:
-      e1a: /home/rishi/ML Projects/Air Pollution/eea/urlso
-      e2a: /home/rishi/ML Projects/Air Pollution/eea/urls1
-    base_out_dir: /home/rishi/ML Projects/Air Pollution/EEA
-    start_date:   "2022-07-01 00:00:00"
-    end_date:     "2025-06-30 23:00:00"
-    max_workers:  24
+#   imputation:
+#     dicts_dir: /home/rishi/ML Projects/Air Pollution/AURN/vis_dicts
+#     input_dir: /home/rishi/ML Projects/Air Pollution/AURN/aurn_processed
+#     output_dir: /home/rishi/ML Projects/Air Pollution/AURN/imputed
+#     max_gap_hours: 336
+#     max_data_missing: 30
+#     max_workers: 24
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
 
 
-eea_fr:
-  visualise:
-    make_dicts: true
-    folder: /home/rishi/ML Projects/Air Pollution/EEA/FR/processed
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    output:
-      dicts_dir: /home/rishi/ML Projects/Air Pollution/EEA/FR/vis_dicts
-      image_dir:  visualize_eea_fr_images
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
-    pollutant_limits:
-      "PM2.5 (µg/m³)": 15
-      "PM10 (µg/m³)":  45
-      "NO2 (µg/m³)":   25
-      "SO2 (µg/m³)":   40
-      "CO (mg/m³)":    4
-      "Ozone (µg/m³)": 100
-
-  imputation:
-    dicts_dir: /home/rishi/ML Projects/Air Pollution/EEA/FR/vis_dicts
-    input_dir: /home/rishi/ML Projects/Air Pollution/EEA/FR/processed
-    output_dir: /home/rishi/ML Projects/Air Pollution/EEA/FR/imputed
-    max_gap_hours: 336
-    max_data_missing: 30
-    max_workers: 24
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
+# eea:
+#   preprocess:
+#     convert_parquet: true
+#     download_folders:
+#       e1a: /home/rishi/ML Projects/Air Pollution/eea/urlso
+#       e2a: /home/rishi/ML Projects/Air Pollution/eea/urls1
+#     base_out_dir: /home/rishi/ML Projects/Air Pollution/EEA
+#     start_date:   "2022-07-01 00:00:00"
+#     end_date:     "2025-06-30 23:00:00"
+#     max_workers:  24
 
 
-eea_de:
-  visualise:
-    make_dicts: true
-    folder: /home/rishi/ML Projects/Air Pollution/EEA/DE/processed
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    output:
-      dicts_dir: /home/rishi/ML Projects/Air Pollution/EEA/DE/vis_dicts
-      image_dir:  visualize_eea_de_images
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
-    pollutant_limits:
-      "PM2.5 (µg/m³)": 15
-      "PM10 (µg/m³)":  45
-      "NO2 (µg/m³)":   25
-      "SO2 (µg/m³)":   40
-      "CO (mg/m³)":    4
-      "Ozone (µg/m³)": 100
+# eea_fr:
+#   visualise:
+#     make_dicts: true
+#     folder: /home/rishi/ML Projects/Air Pollution/EEA/FR/processed
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     output:
+#       dicts_dir: /home/rishi/ML Projects/Air Pollution/EEA/FR/vis_dicts
+#       image_dir:  visualize_eea_fr_images
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
+#     pollutant_limits:
+#       "PM2.5 (µg/m³)": 15
+#       "PM10 (µg/m³)":  45
+#       "NO2 (µg/m³)":   25
+#       "SO2 (µg/m³)":   40
+#       "CO (mg/m³)":    4
+#       "Ozone (µg/m³)": 100
 
-  imputation:
-    dicts_dir: /home/rishi/ML Projects/Air Pollution/EEA/DE/vis_dicts
-    input_dir: /home/rishi/ML Projects/Air Pollution/EEA/DE/processed
-    output_dir: /home/rishi/ML Projects/Air Pollution/EEA/DE/imputed
-    max_gap_hours: 336
-    max_data_missing: 30
-    max_workers: 24
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
-
-
-sinaica:
-  preprocess:
-    output_dir:  /home/rishi/ML Projects/Air Pollution/SINAICA/processed
-    date_start:  "2022-07-01 00:00:00"
-    date_end:    "2025-06-30 23:00:00"
-    max_workers: 24
-
-  visualise:
-    make_dicts: true
-    folder: /home/rishi/ML Projects/Air Pollution/SINAICA/processed
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    output:
-      dicts_dir: /home/rishi/ML Projects/Air Pollution/SINAICA/vis_dicts
-      image_dir:  visualize_sinaica_images
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
-    pollutant_limits:
-      "PM2.5 (µg/m³)": 15
-      "PM10 (µg/m³)":  45
-      "NO2 (µg/m³)":   25
-      "SO2 (µg/m³)":   40
-      "CO (mg/m³)":    4
-      "Ozone (µg/m³)": 100
-
-  imputation:
-    dicts_dir:        /home/rishi/ML Projects/Air Pollution/SINAICA/vis_dicts
-    input_dir:        /home/rishi/ML Projects/Air Pollution/SINAICA/processed
-    output_dir:       /home/rishi/ML Projects/Air Pollution/SINAICA/imputed
-    max_gap_hours:    336
-    max_data_missing: 30
-    max_workers:      24
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
+#   imputation:
+#     dicts_dir: /home/rishi/ML Projects/Air Pollution/EEA/FR/vis_dicts
+#     input_dir: /home/rishi/ML Projects/Air Pollution/EEA/FR/processed
+#     output_dir: /home/rishi/ML Projects/Air Pollution/EEA/FR/imputed
+#     max_gap_hours: 336
+#     max_data_missing: 30
+#     max_workers: 24
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
 
 
-cnemc:
-  preprocess:
-    zip: false
-    zip_path:   /mnt/2TB_WD/rishi/cnemc_data.zip
-    unzip_dir:  /mnt/2TB_WD/rishi/cnemc_data
-    data_dir:   /home/rishi/ML Projects/Air Pollution/Datasets/cnemc_data
-    output_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
-    start_date: "2022-07-01 00:00:00"
-    end_date:   "2025-06-30 23:00:00"
+# eea_de:
+#   visualise:
+#     make_dicts: true
+#     folder: /home/rishi/ML Projects/Air Pollution/EEA/DE/processed
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     output:
+#       dicts_dir: /home/rishi/ML Projects/Air Pollution/EEA/DE/vis_dicts
+#       image_dir:  visualize_eea_de_images
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
+#     pollutant_limits:
+#       "PM2.5 (µg/m³)": 15
+#       "PM10 (µg/m³)":  45
+#       "NO2 (µg/m³)":   25
+#       "SO2 (µg/m³)":   40
+#       "CO (mg/m³)":    4
+#       "Ozone (µg/m³)": 100
 
-  visualise:
-    make_dicts: true
-    folder: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    output:
-      dicts_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/vis_dicts
-      image_dir:  visualize_cnemc_images
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
-    pollutant_limits:
-      "PM2.5 (µg/m³)": 15
-      "PM10 (µg/m³)":  45
-      "NO2 (µg/m³)":   25
-      "SO2 (µg/m³)":   40
-      "CO (mg/m³)":    4
-      "Ozone (µg/m³)": 100
+#   imputation:
+#     dicts_dir: /home/rishi/ML Projects/Air Pollution/EEA/DE/vis_dicts
+#     input_dir: /home/rishi/ML Projects/Air Pollution/EEA/DE/processed
+#     output_dir: /home/rishi/ML Projects/Air Pollution/EEA/DE/imputed
+#     max_gap_hours: 336
+#     max_data_missing: 30
+#     max_workers: 24
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
 
-  imputation:
-    dicts_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/vis_dicts
-    input_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
-    output_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/imputed
-    max_gap_hours: 336
-    max_data_missing: 30
-    max_workers: 24
-    date_range:
-      start: "2022-07-01 00:00:00"
-      end:   "2025-06-30 23:00:00"
-    features:
-      - "PM2.5 (µg/m³)"
-      - "PM10 (µg/m³)"
-      - "NO2 (µg/m³)"
-      - "SO2 (µg/m³)"
-      - "CO (mg/m³)"
-      - "Ozone (µg/m³)"
+
+# sinaica:
+#   preprocess:
+#     output_dir:  /home/rishi/ML Projects/Air Pollution/SINAICA/processed
+#     date_start:  "2022-07-01 00:00:00"
+#     date_end:    "2025-06-30 23:00:00"
+#     max_workers: 24
+
+#   visualise:
+#     make_dicts: true
+#     folder: /home/rishi/ML Projects/Air Pollution/SINAICA/processed
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     output:
+#       dicts_dir: /home/rishi/ML Projects/Air Pollution/SINAICA/vis_dicts
+#       image_dir:  visualize_sinaica_images
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
+#     pollutant_limits:
+#       "PM2.5 (µg/m³)": 15
+#       "PM10 (µg/m³)":  45
+#       "NO2 (µg/m³)":   25
+#       "SO2 (µg/m³)":   40
+#       "CO (mg/m³)":    4
+#       "Ozone (µg/m³)": 100
+
+#   imputation:
+#     dicts_dir:        /home/rishi/ML Projects/Air Pollution/SINAICA/vis_dicts
+#     input_dir:        /home/rishi/ML Projects/Air Pollution/SINAICA/processed
+#     output_dir:       /home/rishi/ML Projects/Air Pollution/SINAICA/imputed
+#     max_gap_hours:    336
+#     max_data_missing: 30
+#     max_workers:      24
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
+
+
+# cnemc:
+#   preprocess:
+#     zip: false
+#     zip_path:   /mnt/2TB_WD/rishi/cnemc_data.zip
+#     unzip_dir:  /mnt/2TB_WD/rishi/cnemc_data
+#     data_dir:   /home/rishi/ML Projects/Air Pollution/Datasets/cnemc_data
+#     output_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
+#     start_date: "2022-07-01 00:00:00"
+#     end_date:   "2025-06-30 23:00:00"
+
+#   visualise:
+#     make_dicts: true
+#     folder: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     output:
+#       dicts_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/vis_dicts
+#       image_dir:  visualize_cnemc_images
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"
+#     pollutant_limits:
+#       "PM2.5 (µg/m³)": 15
+#       "PM10 (µg/m³)":  45
+#       "NO2 (µg/m³)":   25
+#       "SO2 (µg/m³)":   40
+#       "CO (mg/m³)":    4
+#       "Ozone (µg/m³)": 100
+
+#   imputation:
+#     dicts_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/vis_dicts
+#     input_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/separated
+#     output_dir: /home/rishi/ML Projects/Air Pollution/CNEMC/imputed
+#     max_gap_hours: 336
+#     max_data_missing: 30
+#     max_workers: 24
+#     date_range:
+#       start: "2022-07-01 00:00:00"
+#       end:   "2025-06-30 23:00:00"
+#     features:
+#       - "PM2.5 (µg/m³)"
+#       - "PM10 (µg/m³)"
+#       - "NO2 (µg/m³)"
+#       - "SO2 (µg/m³)"
+#       - "CO (mg/m³)"
+#       - "Ozone (µg/m³)"

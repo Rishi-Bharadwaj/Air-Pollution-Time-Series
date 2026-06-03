@@ -47,7 +47,7 @@ def plot_site_comparison_heatmap(df, feature_name, limit_dict, image_dir):
     ax.set_xticks(tick_positions)
     ax.set_xticklabels(tick_labels, rotation=45, fontsize=8)
 
-    plt.title(f"{feature_name} Across Sites Over Time", fontsize=16, pad=20)
+    plt.title(f"CPCB {feature_name} Across Sites Over Time Before Transformation", fontsize=16, pad=20)
     plt.xlabel("Year", fontsize=12)
     plt.ylabel("Site", fontsize=12)
     plt.tight_layout()
